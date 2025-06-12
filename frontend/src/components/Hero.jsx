@@ -2,9 +2,9 @@ import React from 'react';
 
 export default function Hero() {
   return (
-    <div className="relative text-white text-center">
-      <img src="/hero-image.jpeg" alt="Hero" className="w-full h-[400px] object-cover" />
-      <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center">
+    <div className="relative text-white text-center bg-white">
+      <img src="/hero-image.jpeg" alt="Hero" className="w-full h-[400px] object-cover rounded-b-3xl" />
+      <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center rounded-b-3xl">
         <p className="text-sm">EMPOWERING IDEAS · TRANSFORMING LIVES</p>
         <h1 className="text-3xl md:text-5xl font-bold">The Veritas Foundation Inc.</h1>
         <p className="max-w-2xl mt-2 text-sm md:text-lg">
