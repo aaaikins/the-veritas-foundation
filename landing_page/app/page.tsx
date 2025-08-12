@@ -7,13 +7,16 @@ import Achievements from "@/components/achievements"
 import UniversityLogos from "@/components/university-logos"
 import Gallery from "@/components/gallery"
 import Footer from "@/components/footer"
+import Hero from "@/components/hero"
 
 export default function HomePage() {
   return (
     <div className="flex min-h-screen w-full flex-col bg-slate-50 text-slate-900">
       <Header />
+      
       <main className="flex-1">
-        <section id="hero" className="w-full pt-24 md:pt-32 lg:pt-40">
+      <Hero id={{ id: "hero" }} />
+        {/* <section id="hero" className="w-full pt-24 md:pt-32 lg:pt-40">
           <div className="container mx-auto px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16">
               <div className="flex flex-col justify-center space-y-4">
@@ -51,7 +54,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         <section id="mission" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container mx-auto px-4 md:px-6">
