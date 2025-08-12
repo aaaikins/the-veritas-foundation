@@ -4,8 +4,8 @@ import Link from "next/link"
 import { HeartHandshake } from "lucide-react"
 import Image from "next/image"
 
-function Hero(props: { id: { id: string } }) {
-    const { id } = props.id;
+function Hero(props: { id: string }) {
+    const { id } = props;
   return (
     <div className="bg-white mt-20">
       {/* The main hero container now has a background image */}
