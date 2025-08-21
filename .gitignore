@@ -2,6 +2,7 @@
 node_modules/
 .pnp
 .pnp.js
+**/node_modules/
 
 # Production builds
 .next/
@@ -15,6 +16,17 @@ dist/
 .env.development.local
 .env.test.local
 .env.production.local
+**/.env
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+
+# Backend specific environment files
+backend/.env
+backend/.env.local
+backend/.env.development
+backend/.env.production
 
 # Logs
 npm-debug.log*
@@ -22,6 +34,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+*.log
 
 # Runtime data
 pids
@@ -32,6 +45,7 @@ pids
 # Coverage directory used by tools like istanbul
 coverage/
 *.lcov
+.nyc_output
 
 # Dependency directories
 jspm_packages/
@@ -63,13 +77,20 @@ jspm_packages/
 
 # Next.js build output
 .next
+out
 
 # Nuxt.js build / generate output
 .nuxt
+dist
+
+# Gatsby files
+.cache/
+public
 
 # Storybook build outputs
 .out
 .storybook-out
+storybook-static
 
 # Temporary folders
 tmp/
@@ -81,6 +102,7 @@ temp/
 *.swp
 *.swo
 *~
+*.sublime-*
 
 # OS generated files
 .DS_Store
@@ -90,6 +112,100 @@ temp/
 .Trashes
 ehthumbs.db
 Thumbs.db
+Desktop.ini
 
 # Vercel
 .vercel
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Backend uploads (if implemented)
+backend/uploads/
+backend/public/uploads/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# TypeScript
+*.tsbuildinfo
+.tsbuildinfo
+
+# Optional stylelint cache
+.stylelintcache
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# Terraform
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+terraform.tfvars
+terraform.tfvars.json
+
+# AWS
+.aws/
+aws-credentials.json
+*.pem
+*.key
+aws-config.json
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.sql
+database-backups/
+db-dumps/
+
+# RDS and Database credentials
+rds-credentials.json
+database.json
+db-config.json
+
+# CloudFormation
+cloudformation-outputs.json
+stack-outputs.json
+
+# Sentry
+.sentryclirc
+
+# Development and testing
+.local
+local/
+test-data/
+seed-data/
+mock-data/
+
+# Database migrations and seeds (if added later)
+migrations/
+seeds/
+fixtures/
+
+# Docker
+Dockerfile.prod
+docker-compose.override.yml
+docker-compose.local.yml
+
+# IDE and editor specific
+.vscode/settings.json
+.idea/workspace.xml
+.idea/tasks.xml
