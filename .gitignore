@@ -114,6 +114,22 @@ ehthumbs.db
 Thumbs.db
 Desktop.ini
 
+# Build artifacts and temporary files
+.next/
+out/
+build/
+dist/
+tmp/
+temp/
+*.log
+
+# Backup and duplicate files
+*_backup
+*_old
+* 2.*
+*\ 2.*
+*.backup
+
 # Vercel
 .vercel
 
