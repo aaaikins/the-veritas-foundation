@@ -1,6 +1,6 @@
 'use client';
 
-import { FaFacebookF, FaWhatsapp, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
+import { FaInstagram, FaWhatsapp, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
 import { FiSend } from 'react-icons/fi';
 
 function Footer() {
@@ -11,16 +11,16 @@ function Footer() {
         <div className="container mx-auto flex justify-between items-center">
           <h3 className="text-lg font-semibold text-gray-800">Get connected with us on socials</h3>
           <div className="flex items-center space-x-3">
-            <a href="#" className="bg-blue-600 p-2 rounded-md hover:bg-blue-700 transition-colors">
-              <FaFacebookF size={20} />
+            <a href="https://www.instagram.com/veritas_foundu/" className="bg-blue-600 p-2 rounded-md hover:bg-blue-700 transition-colors">
+              <FaInstagram size={20} />
             </a>
             <a href="#" className="bg-green-500 p-2 rounded-md hover:bg-green-600 transition-colors">
               <FaWhatsapp size={20} />
             </a>
-            <a href="#" className="bg-black p-2 rounded-md hover:bg-gray-800 transition-colors">
+            <a href="https://x.com/Veritas_foundU" className="bg-black p-2 rounded-md hover:bg-gray-800 transition-colors">
               <FaTwitter size={20} />
             </a>
-            <a href="#" className="bg-blue-700 p-2 rounded-md hover:bg-blue-800 transition-colors">
+            <a href="https://www.linkedin.com/company/the-veritas-foundation-inc/posts/?feedView=all" className="bg-blue-700 p-2 rounded-md hover:bg-blue-800 transition-colors">
               <FaLinkedinIn size={20} />
             </a>
           </div>
