@@ -14,6 +14,22 @@ A REST API backend for The Veritas Foundation website built with Node.js and Exp
 
 ## Getting Started
 
+### File Structure
+
+```
+backend/
+├── .env                 # Environment variables
+├── .env.example        # Environment variables example
+├── server.js           # Main server entry point
+├── routes.js           # API routes and endpoints
+├── database.js         # PostgreSQL database configuration
+├── middleware.js       # Express middleware functions
+├── package.json        # Project dependencies and scripts
+├── README.md          # Project documentation
+└── public/
+    └── test.html      # Interactive API test console
+```
+
 ### Prerequisites
 
 - Node.js (v16 or higher)

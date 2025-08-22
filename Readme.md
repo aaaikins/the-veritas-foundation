@@ -28,7 +28,9 @@ The Veritas Foundation is a comprehensive full-stack web application with **AWS 
 - **Newsletter System** - Manage newsletter subscriptions with user database
 - **Donation Processing** - Process and track donations with complete audit trail
 - **Statistics Dashboard** - Real-time statistics from database
+- **Interactive Test Console** - Built-in API testing interface at `/test.html`
 - **Security Features** - Input validation, CORS, security headers, SSL connections
+- **Clean Architecture** - Streamlined codebase with only essential files
 
 ## 🗄️ Database Architecture
 
@@ -50,6 +52,13 @@ The Veritas Foundation is a comprehensive full-stack web application with **AWS 
 - Node.js (v16 or higher)
 - npm or pnpm
 - Git
+- AWS Account (for database)
+
+### Repository Status
+✅ **Clean & Organized** - All duplicate files removed  
+✅ **Up-to-date Documentation** - Current setup instructions  
+✅ **Streamlined Structure** - Easy to navigate and understand  
+✅ **Production Ready** - Optimized for deployment  
 
 ### Installation
 
@@ -80,6 +89,7 @@ The Veritas Foundation is a comprehensive full-stack web application with **AWS 
 
 4. **Install backend dependencies**
    ```bash
+   cd backend
    npm install
    ```
 
@@ -100,44 +110,60 @@ The Veritas Foundation is a comprehensive full-stack web application with **AWS 
    **Backend (Terminal 2):**
    ```bash
    cd backend
-   PORT=3001 node server.js
+   npm run dev
    ```
-   Backend API will be available at: `http://localhost:3001`
+   Backend API will be available at: `http://localhost:5000`
 
 7. **Test the API and Database**
-   Visit `http://localhost:3001/api/health` to verify database connection.
+   Visit `http://localhost:5000/api/health` to verify database connection.
+   Use the interactive test console at: `http://localhost:5000/test.html`
 
 ## 📁 Project Structure
 
 ```
 the-veritas-foundation/
 ├── 📁 app/                    # Next.js app directory
-│   ├── globals.css
-│   ├── layout.tsx
-│   ├── page.tsx
-│   └── not-found.tsx
+│   ├── globals.css           # Global styles
+│   ├── layout.tsx           # Root layout component
+│   ├── page.tsx             # Home page component
+│   └── not-found.tsx        # 404 page component
 ├── 📁 components/             # React components
-│   ├── header.tsx
-│   ├── hero.tsx
-│   ├── achievements.tsx
-│   ├── gallery.tsx
-│   ├── footer.tsx
-│   └── 📁 ui/                # Reusable UI components
-├── 📁 backend/               # Express.js API server + Database
-│   ├── server.js            # Main server file with DB connection
-│   ├── routes.js            # Database-powered API routes
-│   ├── database.js          # PostgreSQL connection module
-│   ├── models.js            # Data models (legacy)
-│   ├── middleware.js        # Custom middleware
-│   ├── .env.example         # Environment variables template
-│   ├── package.json
-│   ├── README.md
+│   ├── header.tsx           # Header component
+│   ├── hero.tsx             # Hero section component
+│   ├── achievements.tsx     # Achievements showcase
+│   ├── gallery.tsx          # Image gallery component
+│   ├── footer.tsx           # Footer component
+│   ├── university-logos.tsx # University logos display
+│   └── 📁 ui/               # Reusable UI components
+├── 📁 backend/               # Express.js API server
+│   ├── server.js            # Main server entry point
+│   ├── routes.js            # API routes and endpoints
+│   ├── database.js          # PostgreSQL connection & queries
+│   ├── middleware.js        # Express middleware functions
+│   ├── .env.example         # Backend environment template
+│   ├── package.json         # Backend dependencies
 │   └── 📁 public/
-│       └── test.html        # API testing console
+│       └── test.html        # Interactive API test console
 ├── 📁 public/               # Static assets
+│   ├── hero-image.jpg       # Hero section image
+│   ├── logo.png             # Foundation logo
+│   └── 📁 gallery/          # Gallery images
 ├── 📁 lib/                  # Utility functions
-├── 📁 hooks/                # React hooks
-└── 📁 styles/               # Additional styles
+├── 📁 hooks/                # React custom hooks
+├── 📁 styles/               # Additional styles
+├── .env.example             # Frontend environment template
+├── package.json             # Frontend dependencies
+├── next.config.mjs          # Next.js configuration
+├── tailwind.config.ts       # Tailwind CSS configuration
+├── tsconfig.json           # TypeScript configuration
+├── DATABASE_SETUP.md       # Database setup instructions
+├── MANUAL_RDS_SETUP.md     # Manual RDS setup guide
+├── RDS_COST_GUIDE.md       # AWS RDS cost information
+├── aws-cli-commands-fixed.sh # AWS CLI setup script
+├── cloudformation-template.yml # Infrastructure as Code
+├── CONTRIBUTING.md         # Contribution guidelines
+├── LICENSE                 # MIT license
+└── README.md               # Project documentation
 ```
 
 ## 🔧 API Endpoints
@@ -190,8 +216,9 @@ the-veritas-foundation/
 - **Database:** PostgreSQL 17.4 (AWS RDS)
 - **Database Driver:** pg (node-postgres)
 - **Language:** JavaScript
-- **Middleware:** CORS, Custom validation
-- **Development:** Nodemon
+- **Security:** CORS, Input validation, Security headers
+- **Testing:** Interactive HTML test console
+- **Development:** Nodemon for hot reloading
 
 ### Development Tools
 - **Package Manager:** npm/pnpm
@@ -222,14 +249,55 @@ The frontend is automatically deployed on Vercel and stays in sync with this rep
 **Live URL:** [https://vercel.com/mohammedsaabiqsaha2023-gmailcoms-projects/v0-veritas-foundation-website](https://vercel.com/mohammedsaabiqsaha2023-gmailcoms-projects/v0-veritas-foundation-website)
 
 ### Backend Deployment
-The backend can be deployed to various platforms:
+The backend has been streamlined for easy deployment to various platforms:
 
-- **Heroku:** Ready for deployment with Procfile
-- **Railway:** Simple deployment with environment variables
+**Current Structure:**
+- ✅ Clean, minimal file structure (6 core files)
+- ✅ No duplicate or unnecessary files
+- ✅ Optimized for production deployment
+- ✅ Clear documentation and setup
+
+**Deployment Platforms:**
+- **Heroku:** Ready for deployment with environment variables
+- **Railway:** Simple deployment with PostgreSQL integration
 - **DigitalOcean App Platform:** Container-ready deployment
 - **AWS/GCP/Azure:** Cloud platform deployment
+- **Vercel:** Serverless functions (with modifications)
 
 ## 🔄 Development Workflow
+
+### Recent Improvements (August 2025)
+- **🧹 Repository Cleanup** - Removed duplicate and unnecessary files
+- **📁 Organized Structure** - Clean, logical file organization
+- **📝 Updated Documentation** - Comprehensive and accurate information
+- **🛡️ Enhanced Security** - Improved .gitignore for better protection
+- **🔧 Simplified Setup** - Streamlined installation and deployment process
+- **📊 Better Organization** - Clear separation of concerns between frontend/backend
+- **🗂️ Documentation Structure** - Organized setup guides and cost information
+
+### File Organization
+- **Core Files** - Essential project files in root directory
+- **Setup Guides** - Database and AWS setup documentation  
+- **Infrastructure** - CloudFormation templates and CLI scripts
+- **No Duplicates** - All duplicate files removed for clarity
+- **Clean Backend** - Streamlined backend with only necessary files
+
+#### Files Cleaned Up:
+- ❌ `aws-cli-commands 2.sh` (duplicate)
+- ❌ `aws-cli-commands.sh` (empty duplicate)  
+- ❌ `aws-rds-setup 2.md` (duplicate)
+- ❌ `aws-rds-setup.md` (empty duplicate)
+- ❌ `amplify.yml` (not using Amplify)
+- ❌ `CLEANUP_SUMMARY.md` (temporary file)
+- ❌ `DOCUMENTATION_UPDATES.md` (temporary file)
+
+#### Remaining Essential Files:
+- ✅ `aws-cli-commands-fixed.sh` - Working AWS setup script
+- ✅ `DATABASE_SETUP.md` - Database setup guide
+- ✅ `MANUAL_RDS_SETUP.md` - Manual setup instructions
+- ✅ `RDS_COST_GUIDE.md` - Cost breakdown and optimization
+- ✅ `cloudformation-template.yml` - Infrastructure as Code
+- ✅ `CONTRIBUTING.md` - Contribution guidelines
 
 ### Continue Building
 Continue building your app on: **[https://v0.dev/chat/projects/9gQdUudnCNk](https://v0.dev/chat/projects/9gQdUudnCNk)**
@@ -253,13 +321,13 @@ Ready for integration with:
 
 ### Frontend (.env.local)
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:3001
+NEXT_PUBLIC_API_URL=http://localhost:5000
 ```
 
 ### Backend (.env)
 ```env
 # Server Configuration
-PORT=3001
+PORT=5000
 NODE_ENV=development
 
 # Database Configuration (AWS RDS PostgreSQL)
@@ -280,15 +348,20 @@ See `backend/.env.example` for full configuration options including email, payme
 
 ### Quick Setup Options:
 
-1. **Manual Setup (Recommended)**: Follow `MANUAL_RDS_SETUP.md`
-2. **Automated Setup**: Use `aws-cli-commands-fixed.sh` 
-3. **Infrastructure as Code**: Use `cloudformation-template.yml`
+1. **Manual Setup (Recommended)**: Follow [`MANUAL_RDS_SETUP.md`](MANUAL_RDS_SETUP.md)
+2. **Automated Setup**: Use [`aws-cli-commands-fixed.sh`](aws-cli-commands-fixed.sh) 
+3. **Infrastructure as Code**: Use [`cloudformation-template.yml`](cloudformation-template.yml)
+
+### Documentation Available:
+- [`DATABASE_SETUP.md`](DATABASE_SETUP.md) - General database setup guide
+- [`MANUAL_RDS_SETUP.md`](MANUAL_RDS_SETUP.md) - Step-by-step manual setup
+- [`RDS_COST_GUIDE.md`](RDS_COST_GUIDE.md) - Detailed cost breakdown and optimization
 
 ### Cost Information:
 - **First 12 months**: FREE (AWS Free Tier)
 - **After free tier**: ~$13-15/month
 - **Instance**: db.t3.micro with 20GB storage
-- **Monitoring**: See `RDS_COST_GUIDE.md`
+- **Features**: SSL connections, automated backups, connection pooling
 
 ## 🤝 Contributing
 
@@ -316,5 +389,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Deployed on [Vercel](https://vercel.com)
 
 ---
+
+> **✨ Repository Status: CLEAN & ORGANIZED**  
+> Last cleaned: August 21, 2025  
+> All duplicate files removed, documentation updated, structure optimized
 
 *The Veritas Foundation - Empowering Ideas, Transforming Lives* 🌟

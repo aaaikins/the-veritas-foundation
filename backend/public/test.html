@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas Foundation API Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #002366;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        .test-section h3 {
+            color: #002366;
+            margin-top: 0;
+        }
+        button {
+            background: #facc15;
+            color: #002366;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+        button:hover {
+            background: #e6b800;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #002366;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Veritas Foundation API Test Console</h1>
+        
+        <!-- Health Check -->
+        <div class="test-section">
+            <h3>Health Check</h3>
+            <button onclick="testHealth()">Test Health Endpoint</button>
+            <div id="health-result" class="result"></div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="test-section">
+            <h3>Contact Form</h3>
+            <div class="form-group">
+                <label for="contact-name">Name:</label>
+                <input type="text" id="contact-name" placeholder="Enter your name" value="John Doe">
+            </div>
+            <div class="form-group">
+                <label for="contact-email">Email:</label>
+                <input type="email" id="contact-email" placeholder="Enter your email" value="john@example.com">
+            </div>
+            <div class="form-group">
+                <label for="contact-subject">Subject:</label>
+                <input type="text" id="contact-subject" placeholder="Enter subject" value="API Test Inquiry">
+            </div>
+            <div class="form-group">
+                <label for="contact-message">Message:</label>
+                <textarea id="contact-message" rows="3" placeholder="Enter your message">This is a test message from the API test console.</textarea>
+            </div>
+            <button onclick="testContact()">Submit Contact Form</button>
+            <div id="contact-result" class="result"></div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="test-section">
+            <h3>Newsletter Subscription</h3>
+            <div class="form-group">
+                <label for="newsletter-email">Email:</label>
+                <input type="email" id="newsletter-email" placeholder="Enter email for newsletter" value="newsletter@example.com">
+            </div>
+            <div class="form-group">
+                <label for="newsletter-name">Name (optional):</label>
+                <input type="text" id="newsletter-name" placeholder="Enter your name" value="Newsletter Subscriber">
+            </div>
+            <button onclick="testNewsletter()">Subscribe to Newsletter</button>
+            <div id="newsletter-result" class="result"></div>
+        </div>
+
+        <!-- Donation -->
+        <div class="test-section">
+            <h3>Donation</h3>
+            <div class="form-group">
+                <label for="donation-amount">Amount ($):</label>
+                <input type="number" id="donation-amount" placeholder="Enter donation amount" value="100" min="1">
+            </div>
+            <div class="form-group">
+                <label for="donor-name">Donor Name:</label>
+                <input type="text" id="donor-name" placeholder="Enter donor name" value="Generous Donor">
+            </div>
+            <div class="form-group">
+                <label for="donor-email">Donor Email:</label>
+                <input type="email" id="donor-email" placeholder="Enter donor email" value="donor@example.com">
+            </div>
+            <div class="form-group">
+                <label for="donation-message">Message (optional):</label>
+                <textarea id="donation-message" rows="2" placeholder="Enter optional message">Keep up the great work!</textarea>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="anonymous-donation"> Anonymous Donation
+                </label>
+            </div>
+            <button onclick="testDonation()">Submit Donation</button>
+            <div id="donation-result" class="result"></div>
+        </div>
+
+        <!-- Achievements -->
+        <div class="test-section">
+            <h3>Achievements</h3>
+            <button onclick="testAchievements()">Get Achievements</button>
+            <div id="achievements-result" class="result"></div>
+        </div>
+
+        <!-- Scholars -->
+        <div class="test-section">
+            <h3>Scholars</h3>
+            <button onclick="testScholarsGet()">Get All Scholars</button>
+            <button onclick="testScholarsAdd()">Add Test Scholar</button>
+            <div id="scholars-result" class="result"></div>
+        </div>
+
+        <!-- Gallery -->
+        <div class="test-section">
+            <h3>Gallery</h3>
+            <button onclick="testGallery()">Get Gallery Items</button>
+            <div id="gallery-result" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000';
+
+        function displayResult(elementId, data, isError = false) {
+            const element = document.getElementById(elementId);
+            element.className = `result ${isError ? 'error' : 'success'}`;
+            element.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+        }
+
+        async function testHealth() {
+            try {
+                const response = await fetch(`${API_BASE}/api/health`);
+                const data = await response.json();
+                displayResult('health-result', data);
+            } catch (error) {
+                displayResult('health-result', `Error: ${error.message}`, true);
+            }
+        }
+
+        async function testContact() {
+            try {
+                const response = await fetch(`${API_BASE}/api/contact`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: document.getElementById('contact-name').value,
+                        email: document.getElementById('contact-email').value,
+                        subject: document.getElementById('contact-subject').value,
+                        message: document.getElementById('contact-message').value
+                    })
+                });
+                const data = await response.json();
+                displayResult('contact-result', data, !response.ok);
+            } catch (error) {
+                displayResult('contact-result', `Error: ${error.message}`, true);
+            }
+        }
+
+        async function testNewsletter() {
+            try {
+                const response = await fetch(`${API_BASE}/api/newsletter`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: document.getElementById('newsletter-email').value,
+                        name: document.getElementById('newsletter-name').value
+                    })
+                });
+                const data = await response.json();
+                displayResult('newsletter-result', data, !response.ok);
+            } catch (error) {
+                displayResult('newsletter-result', `Error: ${error.message}`, true);
+            }
+        }
+
+        async function testDonation() {
+            try {
+                const anonymous = document.getElementById('anonymous-donation').checked;
+                const response = await fetch(`${API_BASE}/api/donation`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        amount: parseFloat(document.getElementById('donation-amount').value),
+                        donorName: anonymous ? '' : document.getElementById('donor-name').value,
+                        donorEmail: anonymous ? '' : document.getElementById('donor-email').value,
+                        message: document.getElementById('donation-message').value,
+                        anonymous: anonymous
+                    })
+                });
+                const data = await response.json();
+                displayResult('donation-result', data, !response.ok);
+            } catch (error) {
+                displayResult('donation-result', `Error: ${error.message}`, true);
+            }
+        }
+
+        async function testAchievements() {
+            try {
+                const response = await fetch(`${API_BASE}/api/achievements`);
+                const data = await response.json();
+                displayResult('achievements-result', data);
+            } catch (error) {
+                displayResult('achievements-result', `Error: ${error.message}`, true);
+            }
+        }
+
+        async function testScholarsGet() {
+            try {
+                const response = await fetch(`${API_BASE}/api/scholars`);
+                const data = await response.json();
+                displayResult('scholars-result', data);
+            } catch (error) {
+                displayResult('scholars-result', `Error: ${error.message}`, true);
+            }
+        }
+
+        async function testScholarsAdd() {
+            try {
+                const response = await fetch(`${API_BASE}/api/scholars`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: 'Test Scholar',
+                        university: 'Test University',
+                        major: 'Computer Science',
+                        graduationYear: '2024',
+                        achievements: ['Dean\'s List', 'Outstanding Student Award'],
+                        bio: 'A dedicated student with a passion for technology.'
+                    })
+                });
+                const data = await response.json();
+                displayResult('scholars-result', data, !response.ok);
+            } catch (error) {
+                displayResult('scholars-result', `Error: ${error.message}`, true);
+            }
+        }
+
+        async function testGallery() {
+            try {
+                const response = await fetch(`${API_BASE}/api/gallery`);
+                const data = await response.json();
+                displayResult('gallery-result', data);
+            } catch (error) {
+                displayResult('gallery-result', `Error: ${error.message}`, true);
+            }
+        }
+
+        // Test health on page load
+        window.addEventListener('load', testHealth);
+    </script>
+</body>
+</html>

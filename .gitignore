@@ -2,7 +2,6 @@
 node_modules/
 .pnp
 .pnp.js
-**/node_modules/
 
 # Production builds
 .next/
@@ -12,29 +11,17 @@ dist/
 
 # Environment variables
 .env
-.env.local
+.env*.local
 .env.development.local
 .env.test.local
 .env.production.local
-**/.env
-**/.env.local
-**/.env.development.local
-**/.env.test.local
-**/.env.production.local
-
-# Backend specific environment files
-backend/.env
-backend/.env.local
-backend/.env.development
-backend/.env.production
 
 # Logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
-*.log
 
 # Runtime data
 pids
@@ -42,55 +29,18 @@ pids
 *.seed
 *.pid.lock
 
-# Coverage directory used by tools like istanbul
+# Coverage and testing
 coverage/
 *.lcov
 .nyc_output
+.jest-cache/
 
-# Dependency directories
-jspm_packages/
-
-# Optional npm cache directory
+# Optional caches
 .npm
-
-# Optional eslint cache
 .eslintcache
-
-# Microbundle cache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# parcel-bundler cache (https://parceljs.org/)
+.stylelintcache
 .cache
 .parcel-cache
-
-# Next.js build output
-.next
-out
-
-# Nuxt.js build / generate output
-.nuxt
-dist
-
-# Gatsby files
-.cache/
-public
-
-# Storybook build outputs
-.out
-.storybook-out
-storybook-static
 
 # Temporary folders
 tmp/
@@ -102,7 +52,6 @@ temp/
 *.swp
 *.swo
 *~
-*.sublime-*
 
 # OS generated files
 .DS_Store
@@ -114,21 +63,13 @@ ehthumbs.db
 Thumbs.db
 Desktop.ini
 
-# Build artifacts and temporary files
-.next/
-out/
-build/
-dist/
-tmp/
-temp/
-*.log
-
 # Backup and duplicate files
 *_backup
 *_old
 * 2.*
 *\ 2.*
 *.backup
+*copy*
 
 # Vercel
 .vercel
@@ -138,71 +79,28 @@ temp/
 *.sqlite
 *.sqlite3
 
-# Backend uploads (if implemented)
+# Backend uploads
 backend/uploads/
-backend/public/uploads/
-
-# Test coverage
-coverage/
-.nyc_output/
+uploads/
 
 # TypeScript
 *.tsbuildinfo
-.tsbuildinfo
 
-# Optional stylelint cache
-.stylelintcache
-
-# Serverless directories
-.serverless/
-
-# FuseBox cache
-.fusebox/
-
-# DynamoDB Local files
-.dynamodb/
-
-# TernJS port file
-.tern-port
-
-# Stores VSCode versions used for testing VSCode extensions
-.vscode-test
-
-# Terraform
-*.tfstate
-*.tfstate.*
-*.tfstate.backup
-.terraform/
-.terraform.lock.hcl
-terraform.tfvars
-terraform.tfvars.json
-
-# AWS
+# AWS credentials and config
 .aws/
-aws-credentials.json
 *.pem
 *.key
+aws-credentials.json
 aws-config.json
 
-# Database files
-*.db
-*.sqlite
-*.sqlite3
-*.sql
-database-backups/
-db-dumps/
-
-# RDS and Database credentials
+# Database credentials
 rds-credentials.json
 database.json
 db-config.json
 
-# CloudFormation
+# CloudFormation outputs
 cloudformation-outputs.json
 stack-outputs.json
-
-# Sentry
-.sentryclirc
 
 # Development and testing
 .local
@@ -211,17 +109,11 @@ test-data/
 seed-data/
 mock-data/
 
-# Database migrations and seeds (if added later)
-migrations/
-seeds/
-fixtures/
+# Documentation artifacts
+CLEANUP_SUMMARY.md
+DOCUMENTATION_UPDATES.md
 
-# Docker
-Dockerfile.prod
-docker-compose.override.yml
-docker-compose.local.yml
-
-# IDE and editor specific
-.vscode/settings.json
-.idea/workspace.xml
-.idea/tasks.xml
+# Duplicate files
+*" 2."*
+*copy*
+*duplicate*
