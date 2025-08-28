@@ -52,7 +52,7 @@ function Hero(props: { id: string }) {
               <FiArrowRight size={24} />
             </button>
           </div> */}
-          <div className="flex justify-center mt-5 space-x-0">
+          <div className="flex justify-center mt-5 space-x-4">
             <Button asChild size="lg" className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90">
             <Link href="#donate">
                 <HeartHandshake className="mr-2 h-5 w-5" />
