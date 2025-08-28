@@ -44,19 +44,30 @@ function Hero(props: { id: string }) {
           </p>
 
           {/* Navigation Arrows */}
-          <div className="flex justify-center items-center space-x-4">
+          {/* <div className="flex justify-center items-center space-x-4">
             <button className="p-3 border-2 border-white rounded-full hover:bg-white hover:bg-opacity-20 transition-colors">
               <FiArrowLeft size={24} />
             </button>
             <button className="p-3 border-2 border-white rounded-full hover:bg-white hover:bg-opacity-20 transition-colors">
               <FiArrowRight size={24} />
             </button>
+          </div> */}
+          <div className="flex justify-center mt-5 space-x-0">
+            <Button asChild size="lg" className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90">
+            <Link href="#donate">
+                <HeartHandshake className="mr-2 h-5 w-5" />
+                Donate Now
+            </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+            <Link href="#mission" className='text-black'>Learn More</Link>
+            </Button>
           </div>
         </div>
       </div>
 
       {/* Buttons below the hero section */}
-      <div className="flex justify-center mt-5 space-x-0">
+      {/* <div className="flex justify-center mt-5 space-x-0">
             <Button asChild size="lg" className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90">
             <Link href="#donate">
                 <HeartHandshake className="mr-2 h-5 w-5" />
@@ -66,7 +77,7 @@ function Hero(props: { id: string }) {
             <Button asChild size="lg" variant="outline">
             <Link href="#mission">Learn More</Link>
             </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

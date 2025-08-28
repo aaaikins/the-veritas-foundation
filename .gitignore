@@ -79,6 +79,9 @@ Desktop.ini
 *.sqlite
 *.sqlite3
 
+# Backend
+backend/
+
 # Backend uploads
 backend/uploads/
 uploads/
