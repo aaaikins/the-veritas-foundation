@@ -8,7 +8,7 @@
 
 ## Overview
 
-The Veritas Foundation is a comprehensive full-stack web application with **AWS RDS PostgreSQL database integration** dedicated to fostering innovation and creating opportunities that lead to lasting positive change in communities. This project provides a complete foundation website with production-ready backend API support for managing donations, contact forms, newsletter subscriptions, and more.
+The Veritas Foundation is a comprehensive full-stack web application with **Python FastAPI backend** and **SQLite/PostgreSQL database integration** dedicated to fostering innovation and creating opportunities that lead to lasting positive change in communities. This project provides a complete foundation website with production-ready backend API support for managing donations, contact forms, newsletter subscriptions, and more.
 
 ## 🌟 Features
 
@@ -20,39 +20,35 @@ The Veritas Foundation is a comprehensive full-stack web application with **AWS 
 - **Contact Forms** - Easy ways for visitors to get in touch
 - **Donation Interface** - Seamless donation experience
 
-### Backend (Node.js/Express + PostgreSQL)
-- **AWS RDS PostgreSQL Database** - Production-ready cloud database
-- **RESTful API** - Comprehensive API for all foundation operations
-- **Database-Powered Operations** - All data persisted to PostgreSQL
-- **Contact Management** - Handle and track contact form submissions
-- **Newsletter System** - Manage newsletter subscriptions with user database
-- **Donation Processing** - Process and track donations with complete audit trail
-- **Statistics Dashboard** - Real-time statistics from database
-- **Interactive Test Console** - Built-in API testing interface at `/test.html`
-- **Security Features** - Input validation, CORS, security headers, SSL connections
-- **Clean Architecture** - Streamlined codebase with only essential files
+### Backend (Python/FastAPI + SQLAlchemy)
+- **FastAPI Framework** - High-performance async API with automatic OpenAPI docs
+- **SQLAlchemy ORM** - Robust database operations with SQLite/PostgreSQL support
+- **AWS S3 Integration** - File upload and storage capabilities
+- **Clerk Authentication** - User authentication and authorization
+- **JWT Tokens** - Secure API authentication
+- **CORS Support** - Cross-origin resource sharing configured
+- **Modular Architecture** - Organized routers for different features
 
 ## 🗄️ Database Architecture
 
-### PostgreSQL Tables
-- **`users`** - Newsletter subscribers and user accounts
-- **`contact_messages`** - Contact form submissions with timestamps
-- **`donations`** - Donation records with amounts and user relationships
+### SQLAlchemy Models
+The backend uses SQLAlchemy ORM with support for SQLite (default) and PostgreSQL.
 
 ### Database Features
-- **AWS RDS PostgreSQL 17.4** - Latest stable PostgreSQL version
-- **SSL Connections** - Encrypted database connections
+- **SQLite Default** - Local database for development
+- **PostgreSQL Support** - Production-ready with connection string configuration
+- **AWS S3 Integration** - File storage for uploads
+- **Automatic Migrations** - Database schema management
 - **Connection Pooling** - Optimized database performance
-- **Automated Backups** - Built-in AWS backup system
-- **Cost-Optimized** - Free tier eligible, ~$13-15/month after first year
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Node.js (v16 or higher)
-- npm or pnpm
+- Python 3.8+
+- pip (Python package manager)
 - Git
-- AWS Account (for database)
+- AWS Account (optional, for S3 and production database)
 
 ### Repository Status
 ✅ **Clean & Organized** - All duplicate files removed  
@@ -75,27 +71,27 @@ The Veritas Foundation is a comprehensive full-stack web application with **AWS 
    pnpm install
    ```
 
-3. **Configure Database Environment**
+3. **Set up Python virtual environment**
    ```bash
    cd backend
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+4. **Install Python dependencies**
+   ```bash
+   pip install fastapi uvicorn sqlalchemy pydantic-settings python-multipart python-jose[cryptography] passlib[bcrypt] python-dotenv boto3
+   ```
+
+5. **Configure environment variables**
+   ```bash
    cp .env.example .env
-   # Edit .env with your AWS RDS credentials:
-   # DB_HOST=your-rds-endpoint.amazonaws.com
-   # DB_PORT=5432
-   # DB_NAME=veritas_foundation
-   # DB_USER=postgres
-   # DB_PASS=your-secure-password
+   # Edit .env with your configuration (optional for basic setup)
    ```
 
-4. **Install backend dependencies**
+6. **Initialize database**
    ```bash
-   cd backend
-   npm install
-   ```
-
-5. **Initialize Database Tables**
-   ```bash
-   node -e "require('./database').initializeDatabase()"
+   python -c "from app.database import Base, engine; Base.metadata.create_all(bind=engine)"
    ```
 
 6. **Start the development servers**
@@ -110,13 +106,14 @@ The Veritas Foundation is a comprehensive full-stack web application with **AWS 
    **Backend (Terminal 2):**
    ```bash
    cd backend
-   npm run dev
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   uvicorn main:app --reload --host 0.0.0.0 --port 8000
    ```
-   Backend API will be available at: `http://localhost:5000`
+   Backend API will be available at: `http://localhost:8000`
 
-7. **Test the API and Database**
-   Visit `http://localhost:5000/api/health` to verify database connection.
-   Use the interactive test console at: `http://localhost:5000/test.html`
+7. **Test the API**
+   Visit `http://localhost:8000/docs` for interactive API documentation (Swagger UI)
+   Visit `http://localhost:8000/health` for health check
 
 ## 📁 Project Structure
 
@@ -135,15 +132,17 @@ the-veritas-foundation/
 │   ├── footer.tsx           # Footer component
 │   ├── university-logos.tsx # University logos display
 │   └── 📁 ui/               # Reusable UI components
-├── 📁 backend/               # Express.js API server
-│   ├── server.js            # Main server entry point
-│   ├── routes.js            # API routes and endpoints
-│   ├── database.js          # PostgreSQL connection & queries
-│   ├── middleware.js        # Express middleware functions
-│   ├── .env.example         # Backend environment template
-│   ├── package.json         # Backend dependencies
-│   └── 📁 public/
-│       └── test.html        # Interactive API test console
+├── 📁 backend/               # FastAPI backend server
+│   ├── main.py              # Main FastAPI application
+│   └── 📁 app/              # Application modules
+│       ├── config.py        # Application configuration
+│       ├── database.py      # SQLAlchemy database setup
+│       ├── models.py        # Database models
+│       ├── clerk_auth.py    # Clerk authentication
+│       ├── s3_service.py    # AWS S3 file service
+│       └── 📁 routers/      # API route modules
+│           ├── applications.py
+│           └── ...          # Other route files
 ├── 📁 public/               # Static assets
 │   ├── hero-image.jpg       # Hero section image
 │   ├── logo.png             # Foundation logo
@@ -171,35 +170,46 @@ the-veritas-foundation/
 ### Core Endpoints
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/` | GET | API information and documentation |
-| `/api/health` | GET | System health check |
-| `/api/statistics` | GET | Overall system statistics |
+| `/` | GET | API information |
+| `/health` | GET | System health check |
+| `/docs` | GET | Interactive API documentation (Swagger UI) |
+| `/redoc` | GET | Alternative API documentation (ReDoc) |
 
-### Contact & Communication
+### Authentication
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/contact` | POST | Submit contact form |
-| `/api/contacts` | GET | Get all contact submissions |
-| `/api/newsletter` | POST | Subscribe to newsletter |
-| `/api/newsletters` | GET | Get newsletter subscribers |
+| `/api/auth/*` | Various | Authentication endpoints |
 
-### Donations
+### Content Management
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/donation` | POST | Process donation |
-| `/api/donations` | GET | Get donation history |
+| `/api/blogs` | GET/POST | Blog posts management |
+| `/api/events` | GET/POST | Events management |
+| `/api/gallery` | GET/POST | Gallery management |
+| `/api/programs` | GET/POST | Programs management |
 
-### Scholars & Achievements
+### Administrative
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/scholars` | GET/POST | Manage scholars |
-| `/api/scholars/:id` | GET/PUT/DELETE | Individual scholar operations |
-| `/api/achievements` | GET | Get foundation achievements |
+| `/api/dashboard` | GET | Dashboard data |
+| `/api/reports` | GET/POST | Reports management |
+| `/api/documents` | GET/POST | Document management |
 
-### Media
+### Financial
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/gallery` | GET | Get gallery items |
+| `/api/donations` | GET/POST | Donation management |
+
+### User Management
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/beneficiaries` | GET/POST | Beneficiaries management |
+| `/api/applications` | GET/POST | Applications management |
+
+### File Management
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/uploads` | POST | File upload endpoint |
 
 ## 🛠 Technologies Used
 
@@ -211,14 +221,14 @@ the-veritas-foundation/
 - **Icons:** Lucide React
 
 ### Backend
-- **Runtime:** Node.js
-- **Framework:** Express.js 4.x
-- **Database:** PostgreSQL 17.4 (AWS RDS)
-- **Database Driver:** pg (node-postgres)
-- **Language:** JavaScript
-- **Security:** CORS, Input validation, Security headers
-- **Testing:** Interactive HTML test console
-- **Development:** Nodemon for hot reloading
+- **Framework:** FastAPI
+- **Language:** Python 3.8+
+- **Database ORM:** SQLAlchemy
+- **Database:** SQLite (default) / PostgreSQL
+- **Authentication:** Clerk
+- **File Storage:** AWS S3
+- **API Documentation:** Automatic OpenAPI/Swagger
+- **Security:** JWT tokens, CORS
 
 ### Development Tools
 - **Package Manager:** npm/pnpm
@@ -249,20 +259,21 @@ The frontend is automatically deployed on Vercel and stays in sync with this rep
 **Live URL:** [https://vercel.com/mohammedsaabiqsaha2023-gmailcoms-projects/v0-veritas-foundation-website](https://vercel.com/mohammedsaabiqsaha2023-gmailcoms-projects/v0-veritas-foundation-website)
 
 ### Backend Deployment
-The backend has been streamlined for easy deployment to various platforms:
+The backend can be deployed to various platforms supporting Python applications:
 
 **Current Structure:**
-- ✅ Clean, minimal file structure (6 core files)
-- ✅ No duplicate or unnecessary files
-- ✅ Optimized for production deployment
-- ✅ Clear documentation and setup
+- ✅ FastAPI application with automatic API docs
+- ✅ SQLAlchemy ORM with database flexibility
+- ✅ Modular router architecture
+- ✅ Environment-based configuration
 
 **Deployment Platforms:**
-- **Heroku:** Ready for deployment with environment variables
-- **Railway:** Simple deployment with PostgreSQL integration
+- **Railway:** Python app deployment with PostgreSQL
+- **Heroku:** Python app with easy scaling
 - **DigitalOcean App Platform:** Container-ready deployment
 - **AWS/GCP/Azure:** Cloud platform deployment
 - **Vercel:** Serverless functions (with modifications)
+- **Docker:** Containerized deployment
 
 ## 🔄 Development Workflow
 
@@ -321,47 +332,57 @@ Ready for integration with:
 
 ### Frontend (.env.local)
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
 ### Backend (.env)
 ```env
-# Server Configuration
-PORT=5000
-NODE_ENV=development
+# Database
+DATABASE_URL=sqlite:///./veritas_foundation.db
 
-# Database Configuration (AWS RDS PostgreSQL)
-DB_HOST=your-rds-endpoint.amazonaws.com
-DB_PORT=5432
-DB_NAME=veritas_foundation
-DB_USER=postgres
-DB_PASS=your-secure-password
-DB_SSL=true
+# AWS S3 (optional)
+AWS_ACCESS_KEY_ID=your-aws-access-key
+AWS_SECRET_ACCESS_KEY=your-aws-secret-key
+AWS_REGION=us-east-1
+S3_BUCKET_NAME=your-bucket-name
 
-# CORS Configuration
-CORS_ORIGIN=http://localhost:3000
+# Clerk Authentication (optional)
+CLERK_SECRET_KEY=your-clerk-secret-key
+
+# JWT
+SECRET_KEY=your-secret-key-here-change-in-production
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+# Application
+DEBUG=true
+API_V1_STR=/api/v1
+CORS_ORIGINS=["http://localhost:3000"]
 ```
 
 See `backend/.env.example` for full configuration options including email, payment gateway, and JWT settings.
 
 ## 🗄️ Database Setup
 
-### Quick Setup Options:
+### Default Setup (SQLite):
+No additional setup required. The application uses SQLite by default for local development.
 
-1. **Manual Setup (Recommended)**: Follow [`MANUAL_RDS_SETUP.md`](MANUAL_RDS_SETUP.md)
-2. **Automated Setup**: Use [`aws-cli-commands-fixed.sh`](aws-cli-commands-fixed.sh) 
-3. **Infrastructure as Code**: Use [`cloudformation-template.yml`](cloudformation-template.yml)
+### Production Setup (PostgreSQL):
+Update the `DATABASE_URL` in `.env` to your PostgreSQL connection string:
+```env
+DATABASE_URL=postgresql://user:password@localhost/dbname
+```
 
-### Documentation Available:
-- [`DATABASE_SETUP.md`](DATABASE_SETUP.md) - General database setup guide
-- [`MANUAL_RDS_SETUP.md`](MANUAL_RDS_SETUP.md) - Step-by-step manual setup
-- [`RDS_COST_GUIDE.md`](RDS_COST_GUIDE.md) - Detailed cost breakdown and optimization
+### Database Initialization:
+Run the database initialization command from the backend directory:
+```bash
+python -c "from app.database import Base, engine; Base.metadata.create_all(bind=engine)"
+```
 
-### Cost Information:
-- **First 12 months**: FREE (AWS Free Tier)
-- **After free tier**: ~$13-15/month
-- **Instance**: db.t3.micro with 20GB storage
-- **Features**: SSL connections, automated backups, connection pooling
+### Supported Databases:
+- **SQLite** - Default, no setup required
+- **PostgreSQL** - Production recommended
+- **MySQL** - Alternative option
 
 ## 🤝 Contributing
 

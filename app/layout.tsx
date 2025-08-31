@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { Geist } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
-// import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -22,8 +22,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={cn("min-h-screen bg-background font-sans antialiased", geistSans.variable)}>{children}</body>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning={true}>
+      <body className={cn("min-h-screen bg-background font-sans antialiased", geistSans.variable)}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
