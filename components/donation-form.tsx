@@ -8,10 +8,11 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { HeartHandshake, CreditCard, DollarSign, Mail, User, Phone, MessageSquare } from "lucide-react"
+import { HeartHandshake, CreditCard, DollarSign, Mail, User, Phone, MessageSquare, Loader2 } from "lucide-react"
 
 export default function DonationForm() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [donationType, setDonationType] = useState("one-time")
   const [customAmount, setCustomAmount] = useState("")
   const [formData, setFormData] = useState({
@@ -41,13 +42,21 @@ export default function DonationForm() {
     }))
   }
 
+  const handleDonateClick = async () => {
+    setIsLoading(true);
+    setIsOpen(true);
+    // Add a small delay for better UX
+    await new Promise(resolve => setTimeout(resolve, 600));
+    setIsLoading(false);
+  };
+
   const handleAmountSelect = (amount: string) => {
     setFormData(prev => ({
       ...prev,
       amount: amount
     }))
     setCustomAmount("")
-  }
+  };
 
   const handleCustomAmountChange = (value: string) => {
     setCustomAmount(value)
@@ -92,10 +101,21 @@ export default function DonationForm() {
       <DialogTrigger asChild>
         <Button
           size="lg"
-          className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90 hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl font-semibold text-lg px-8 py-4 group"
+          className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90 hover:scale-105 transition-all duration-500 ease-out shadow-xl hover:shadow-2xl font-semibold text-lg px-8 py-4 group disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
+          onClick={handleDonateClick}
+          disabled={isLoading}
         >
-          <HeartHandshake className="mr-3 h-5 w-5 group-hover:animate-pulse" />
-          Donate Now
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              Opening...
+            </>
+          ) : (
+            <>
+              <HeartHandshake className="mr-3 h-5 w-5 group-hover:animate-pulse" />
+              Donate Now
+            </>
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto bg-white">

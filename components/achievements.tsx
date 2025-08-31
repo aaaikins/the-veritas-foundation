@@ -26,7 +26,7 @@ const achievements = [
 
 export default function Achievements() {
   return (
-    <section id="achievements" className="w-full py-20 md:py-28 lg:py-36 bg-gradient-to-br from-slate-50 via-white to-slate-50">
+    <section id="achievements" className="w-full py-20 md:py-28 lg:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-50">
       <div className="container mx-auto px-6 md:px-8">
         <div className="flex flex-col items-center justify-center space-y-10 text-center mb-16">
           <div className="inline-flex items-center gap-3 bg-[#facc15]/10 text-[#002366] px-5 py-3 rounded-full text-sm font-semibold border border-[#facc15]/20">

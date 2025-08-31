@@ -1,13 +1,23 @@
+"use client"
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { HeartHandshake } from "lucide-react"
+import { HeartHandshake, Loader2 } from "lucide-react"
 import Image from "next/image"
-import ApplicationForm from "@/components/application-form"
 import DonationForm from "@/components/donation-form"
+import { useState } from "react"
 
 function Hero(props: { id: string }) {
     const { id } = props;
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleJoinUsClick = async () => {
+        setIsLoading(true);
+        // Add a small delay for better UX
+        await new Promise(resolve => setTimeout(resolve, 800));
+        // The Link component will handle the navigation
+    };
+
   return (
     <div className="bg-white">
       {/* The main hero container now has a background image */}
@@ -32,7 +42,7 @@ function Hero(props: { id: string }) {
         {/* Content container, positioned above the overlay */}
         <div className="relative z-10 max-w-6xl mx-auto">
           {/* Top badge */}
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 px-6 py-3 rounded-full text-sm font-semibold mb-8 hover:bg-white/20 transition-all duration-300">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 px-6 py-3 rounded-full text-sm font-semibold mb-8 hover:bg-white/20 transition-all duration-500 ease-out">
             <span>EMPOWERING IDEAS</span>
             <span className="text-[#facc15]">•</span>
             <span>TRANSFORMING LIVES</span>
@@ -55,7 +65,23 @@ function Hero(props: { id: string }) {
           {/* Enhanced CTA buttons */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8">
             <DonationForm />
-            <ApplicationForm />
+            <Link href="/join-us">
+              <Button
+                size="lg"
+                className="bg-[#002366] hover:bg-[#002366]/90 text-[#facc15] font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-500 ease-out group disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
+                onClick={handleJoinUsClick}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Loading...
+                  </>
+                ) : (
+                  'Join Us Now'
+                )}
+              </Button>
+            </Link>
           </div>
 
           {/* Trust indicators */}

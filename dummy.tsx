@@ -13,7 +13,6 @@ import DonationForm from "@/components/donation-form"
 import TeamMembers from "@/components/team-members"
 import Testimonials from "@/components/testimonials"
 // import ApplicationForm from "@/components/application-form"
-
 export default function HomePage() {
   return (
     <div className="flex min-h-screen w-full flex-col bg-slate-50 text-slate-900">
@@ -22,23 +21,24 @@ export default function HomePage() {
       <main className="flex-1">
       <Hero id="hero" />
 
-        {/* About Us Section */}
-        <section id="mission" className="w-full py-20 md:py-28 lg:py-36 bg-white">
+        {/* About Us, Mission & Vision Section */}
+        <section id="about-mission-vision" className="w-full py-20 md:py-28 lg:py-36 bg-white">
           <div className="container mx-auto px-6 md:px-8">
-            {/* About us badge above the grid */}
-            <div className="text-center mb-12">
+            {/* About Us Badge */}
+            <div className="text-center mb-24 ">
               <div className="inline-flex items-center gap-3 bg-[#facc15]/10 text-[#002366] px-5 py-3 rounded-full text-sm font-semibold border border-[#facc15]/20">
-                <span>About us</span>
+                <span>About Us</span>
               </div>
             </div>
 
-            <div className="grid items-center gap-20 lg:grid-cols-2 lg:gap-24 mb-16">
-              <div className="flex flex-col justify-center space-y-8">
+            {/* About Us with Logo */}
+            <div className="grid items-center gap-20 lg:grid-cols-2 lg:gap-24 mb-20">
+              <div className="bg-gradient-to-br from-slate-50 to-white p-8 rounded-2xl border-l-4 border-[#facc15] shadow-lg hover:shadow-xl transition-all duration-300">
                 <div className="space-y-6">
-                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#002366] leading-tight">
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#002366] leading-tight">
                     About The Veritas Foundation
                   </h2>
-                  <p className="max-w-[600px] text-slate-600 md:text-lg leading-relaxed font-normal">
+                  <p className="text-slate-600 leading-relaxed text-lg">
                     The Veritas Foundation Inc. is a registered 501(c)(3) non-profit organization dedicated to educational
                     equity and social justice. Founded with the belief that every individual deserves the opportunity to
                     pursue their dreams, we have been transforming lives through comprehensive scholarship programs,
@@ -61,16 +61,26 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Mission and Vision below */}
-            <div className="grid gap-8 md:grid-cols-2">
-              <div className="bg-gradient-to-br from-slate-50 to-white p-8 rounded-2xl border-l-4 border-[#facc15] shadow-lg hover:shadow-xl transition-all duration-300">
+            {/* Mission & Vision */}
+            <div className="text-center space-y-6 mt-12 mb-16">
+              <div className="inline-flex items-center gap-3 bg-[#002366]/10 text-[#002366] px-5 py-3 rounded-full text-sm font-semibold border border-[#002366]/20">
+                <span>Our Mission & Vision</span>
+              </div>
+              {/* <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#002366] leading-tight">
+                Guiding Our
+                <br />
+                <span className="text-[#facc15]">Purpose & Future</span>
+              </h2> */}
+            </div>
+            <div className="grid gap-8 md:grid-cols-2 max-w-6xl mx-auto">
+              <div className="bg-gradient-to-br from-slate-50 to-white p-8 rounded-2xl border-l-4 border-[#002366] shadow-lg hover:shadow-xl transition-all duration-300">
                 <h3 className="text-2xl font-bold text-[#002366] mb-4">Mission</h3>
                 <p className="text-slate-600 leading-relaxed text-lg">
                   To empower individuals by providing access to education, mentorship, and resources, enabling them
                   to realize their full potential and contribute meaningfully to society.
                 </p>
               </div>
-              <div className="bg-gradient-to-br from-slate-50 to-white p-8 rounded-2xl border-l-4 border-[#002366] shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="bg-gradient-to-br from-slate-50 to-white p-8 rounded-2xl border-l-4 border-[#facc15] shadow-lg hover:shadow-xl transition-all duration-300">
                 <h3 className="text-2xl font-bold text-[#002366] mb-4">Vision</h3>
                 <p className="text-slate-600 leading-relaxed text-lg">
                   A world where every person has the opportunity to pursue their dreams and create a better future

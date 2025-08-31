@@ -38,24 +38,47 @@ export default function ApplicationForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Submit the data as multipart/form-data to the backend endpoint
+    // Submit the data as JSON to match the backend API
     const submit = async () => {
       try {
-        const payload = new FormData()
-        Object.entries(formData).forEach(([k, v]) => {
-          payload.append(k, v)
-        })
-        if (resumeFile) payload.append("resume", resumeFile)
+        // Construct the payload to match the backend ApplicationCreate model
+        const payload = {
+          applicant_name: `${formData.firstName} ${formData.lastName}`.trim(),
+          applicant_email: formData.email,
+          applicant_phone: formData.phone || null,
+          program_id: 6, // Use the default scholarship program ID
+          application_data: {
+            university: formData.university,
+            major: formData.major,
+            gpa: formData.gpa,
+            graduationYear: formData.graduationYear,
+            roleOfInterest: formData.roleOfInterest,
+            relevantExperience: formData.relevantExperience,
+            motivation: formData.motivation,
+            availability: formData.availability,
+            // essay: formData.essay,
+            // references: formData.references,
+          }
+        }
+
+        console.log('Submitting application:', payload)
 
         const res = await fetch("/api/applications", {
           method: "POST",
-          body: payload,
           headers: {
-            // Don't set Content-Type for FormData, let the browser set it
-          }
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload)
         })
 
-        if (!res.ok) throw new Error(`Server error: ${res.status}`)
+        if (!res.ok) {
+          const errorText = await res.text()
+          console.error('Server response:', errorText)
+          throw new Error(`Server error: ${res.status} - ${errorText}`)
+        }
+
+        const responseData = await res.json()
+        console.log('Success response:', responseData)
 
         alert("Thank you for your application! We'll be in touch soon.")
         setIsOpen(false)
@@ -78,7 +101,7 @@ export default function ApplicationForm() {
         })
         setResumeFile(null)
       } catch (err) {
-        console.error(err)
+        console.error('Submission error:', err)
         alert("Failed to submit application. Please try again later.")
       }
     }
@@ -94,14 +117,15 @@ export default function ApplicationForm() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button
-          size="lg"
-          variant="outline"
-          className="border-2 border-white/30 text-[#002366] hover:bg-white/10 hover:border-white/50 transition-all duration-300 font-semibold text-lg px-8 py-4 backdrop-blur-sm group"
-        >
-          <GraduationCap className="mr-3 h-5 w-5 group-hover:animate-pulse" />
-          Apply Now
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            size="lg"
+            className="bg-[#facc15] hover:bg-[#facc15]/90 text-[#002366] border-2 border-[#facc15] hover:border-[#facc15]/80 transition-all duration-300 font-semibold text-lg px-8 py-4 shadow-lg hover:shadow-xl transform hover:scale-105 group"
+          >
+            <GraduationCap className="mr-3 h-5 w-5 group-hover:animate-pulse" />
+            Apply Now
+          </Button>
+        </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto bg-white">
         <DialogHeader>
