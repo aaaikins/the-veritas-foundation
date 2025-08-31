@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { User, Calendar, ArrowRight, ExternalLink } from "lucide-react"
 
 export default function BlogSection() {
@@ -98,10 +99,10 @@ export default function BlogSection() {
 
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-slate-400">{p.readTime}</span>
-                  <button className="inline-flex items-center gap-2 text-[#002366] font-semibold hover:text-[#facc15] transition-colors duration-300 group/btn">
+                  <Link href={`/blogs/${p.slug}`} className="inline-flex items-center gap-2 text-[#002366] font-semibold hover:text-[#facc15] transition-colors duration-300 group/btn">
                     Read More
                     <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                  </button>
+                  </Link>
                 </div>
               </div>
             </article>
@@ -109,10 +110,12 @@ export default function BlogSection() {
         </div>
 
         <div className="text-center mt-12">
-          <button className="inline-flex items-center gap-3 bg-[#002366] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#002366]/90 transition-colors duration-300 shadow-lg hover:shadow-xl">
-            View All Posts
-            <ArrowRight className="h-5 w-5" />
-          </button>
+          <Link href="/blogs">
+            <button className="inline-flex items-center gap-3 bg-[#002366] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#002366]/90 transition-colors duration-300 shadow-lg hover:shadow-xl">
+              View All Posts
+              <ArrowRight className="h-5 w-5" />
+            </button>
+          </Link>
         </div>
       </div>
     </section>
