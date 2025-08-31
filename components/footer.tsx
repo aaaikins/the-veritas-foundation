@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { FaInstagram, FaWhatsapp, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
 import { FiSend } from 'react-icons/fi';
 
@@ -16,15 +17,19 @@ function Footer() {
           <h3 className="text-lg font-semibold text-white">Get connected with us on socials</h3>
           <div className="flex items-center space-x-4">
             <a href="https://www.instagram.com/veritas_foundu/" className="bg-blue-600 p-3 rounded-xl hover:bg-blue-700 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl">
+              {/* @ts-ignore */}
               <FaInstagram size={20} />
             </a>
             <a href="#" className="bg-green-500 p-3 rounded-xl hover:bg-green-600 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl">
+              {/* @ts-ignore */}
               <FaWhatsapp size={20} />
             </a>
             <a href="https://x.com/Veritas_foundU" className="bg-black p-3 rounded-xl hover:bg-gray-800 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl">
+              {/* @ts-ignore */}
               <FaTwitter size={20} />
             </a>
             <a href="https://www.linkedin.com/company/the-veritas-foundation-inc/posts/?feedView=all" className="bg-blue-700 p-3 rounded-xl hover:bg-blue-800 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl">
+              {/* @ts-ignore */}
               <FaLinkedinIn size={20} />
             </a>
           </div>
@@ -74,6 +79,7 @@ function Footer() {
               type="submit"
               className="w-full bg-[#facc15] text-[#002366] p-4 rounded-xl hover:bg-[#facc15]/90 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl font-semibold flex items-center justify-center gap-2 group"
             >
+              {/* @ts-ignore */}
               <FiSend size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
               Subscribe
             </button>
