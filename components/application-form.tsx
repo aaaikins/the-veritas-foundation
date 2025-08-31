@@ -49,7 +49,10 @@ export default function ApplicationForm() {
 
         const res = await fetch("/api/applications", {
           method: "POST",
-          body: payload
+          body: payload,
+          headers: {
+            // Don't set Content-Type for FormData, let the browser set it
+          }
         })
 
         if (!res.ok) throw new Error(`Server error: ${res.status}`)
