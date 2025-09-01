@@ -4,42 +4,82 @@ import { User, Calendar, ArrowRight, ExternalLink } from "lucide-react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 
-export default function BlogsPage() {
-  const posts = [
+interface BlogPost {
+  id: number
+  title: string
+  content: string
+  excerpt: string | null
+  slug: string | null
+  status: string
+  featured_image: string | null
+  tags: string[] | null
+  author_id: number
+  published_at: string | null
+  created_at: string
+  updated_at: string
+}
+
+async function getBlogs(): Promise<BlogPost[]> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/blogs?published_only=true`, {
+      cache: 'no-store'
+    })
+    if (response.ok) {
+      return await response.json()
+    }
+  } catch (error) {
+    console.error('Error fetching blogs:', error)
+  }
+
+  // Fallback to hardcoded data
+  return [
     {
-      tag: "Education",
+      id: 1,
       title: "Empowering the Next Generation of African Leaders",
-      excerpt:
-        "Discover how our scholarship program is creating opportunities for young minds to excel in top universities worldwide.",
-      author: "Sarah Johnson",
-      date: "January 15, 2025",
-      image: "/gallery/career-preview.jpg",
-      readTime: "5 min read",
-      slug: "empowering-next-generation-african-leaders"
+      content: "Discover how our scholarship program is creating opportunities for young minds to excel in top universities worldwide.",
+      excerpt: "Discover how our scholarship program is creating opportunities for young minds to excel in top universities worldwide.",
+      slug: "empowering-next-generation-african-leaders",
+      status: "published",
+      featured_image: "/gallery/career-preview.jpg",
+      tags: ["Education"],
+      author_id: 1,
+      published_at: "2025-01-15T00:00:00Z",
+      created_at: "2025-01-15T00:00:00Z",
+      updated_at: "2025-01-15T00:00:00Z"
     },
     {
-      tag: "Success Stories",
+      id: 2,
       title: "Breaking Barriers: Success Stories from Our Scholars",
-      excerpt:
-        "Read inspiring stories from our scholars who have overcome challenges to achieve academic excellence at prestigious institutions.",
-      author: "Michael Chen",
-      date: "January 10, 2025",
-      image: "/gallery/yale-scholar.jpeg",
-      readTime: "7 min read",
-      slug: "breaking-barriers-success-stories"
+      content: "Read inspiring stories from our scholars who have overcome challenges to achieve academic excellence at prestigious institutions.",
+      excerpt: "Read inspiring stories from our scholars who have overcome challenges to achieve academic excellence at prestigious institutions.",
+      slug: "breaking-barriers-success-stories",
+      status: "published",
+      featured_image: "/gallery/yale-scholar.jpeg",
+      tags: ["Success Stories"],
+      author_id: 1,
+      published_at: "2025-01-10T00:00:00Z",
+      created_at: "2025-01-10T00:00:00Z",
+      updated_at: "2025-01-10T00:00:00Z"
     },
     {
-      tag: "Mentorship",
+      id: 3,
       title: "The Impact of Mentorship in Academic Achievement",
-      excerpt:
-        "Learn how our mentorship program connects students with industry leaders to guide their academic and professional journey.",
-      author: "Dr. Amara Okafor",
-      date: "January 5, 2025",
-      image: "/gallery/grambling-scholar.png",
-      readTime: "6 min read",
-      slug: "impact-mentorship-academic-achievement"
+      content: "Learn how our mentorship program connects students with industry leaders to guide their academic and professional journey.",
+      excerpt: "Learn how our mentorship program connects students with industry leaders to guide their academic and professional journey.",
+      slug: "impact-mentorship-academic-achievement",
+      status: "published",
+      featured_image: "/gallery/grambling-scholar.png",
+      tags: ["Mentorship"],
+      author_id: 1,
+      published_at: "2025-01-05T00:00:00Z",
+      created_at: "2025-01-05T00:00:00Z",
+      updated_at: "2025-01-05T00:00:00Z"
     }
   ]
+}
+
+export default async function BlogsPage() {
+  const posts = await getBlogs()
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-slate-50 text-slate-900">
@@ -61,24 +101,26 @@ export default function BlogsPage() {
             </div>
 
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {posts.map((p, idx) => (
+              {posts.map((post) => (
                 <article
-                  key={idx}
+                  key={post.id}
                   className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:rotate-1 border border-slate-200 hover:border-[#002366]/20"
                 >
                   <div className="relative h-56 bg-gradient-to-br from-slate-200 to-slate-300 overflow-hidden">
                     <Image
-                      src={p.image}
-                      alt={p.title}
+                      src={post.featured_image || "/gallery/career-preview.jpg"}
+                      alt={post.title}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="absolute top-4 left-4">
-                      <span className="inline-block bg-[#facc15] text-[#002366] text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                        {p.tag}
-                      </span>
-                    </div>
+                    {post.tags && post.tags.length > 0 && (
+                      <div className="absolute top-4 left-4">
+                        <span className="inline-block bg-[#facc15] text-[#002366] text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                          {post.tags[0]}
+                        </span>
+                      </div>
+                    )}
                     <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <ExternalLink className="h-5 w-5 text-white drop-shadow-lg" />
                     </div>
@@ -86,26 +128,26 @@ export default function BlogsPage() {
 
                   <div className="p-6">
                     <h3 className="text-xl font-bold text-[#002366] group-hover:text-[#facc15] transition-colors duration-300 leading-tight mb-3">
-                      {p.title}
+                      {post.title}
                     </h3>
                     <p className="text-slate-600 leading-relaxed mb-4 line-clamp-3">
-                      {p.excerpt}
+                      {post.excerpt || post.content.substring(0, 150) + "..."}
                     </p>
 
                     <div className="flex items-center justify-between text-sm text-slate-500 mb-4">
                       <div className="flex items-center gap-2">
                         <User className="h-4 w-4" />
-                        <span className="font-medium">{p.author}</span>
+                        <span className="font-medium">Author</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Calendar className="h-4 w-4" />
-                        <span>{p.date}</span>
+                        <span>{new Date(post.published_at || post.created_at).toLocaleDateString()}</span>
                       </div>
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-slate-400">{p.readTime}</span>
-                      <Link href={`/blogs/${p.slug}`} className="inline-flex items-center gap-2 text-[#002366] font-semibold hover:text-[#facc15] transition-colors duration-300 group/btn">
+                      <span className="text-xs text-slate-400">5 min read</span>
+                      <Link href={`/blogs/${post.slug}`} className="inline-flex items-center gap-2 text-[#002366] font-semibold hover:text-[#facc15] transition-colors duration-300 group/btn">
                         Read More
                         <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
                       </Link>

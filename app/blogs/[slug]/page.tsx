@@ -4,20 +4,38 @@ import { User, Calendar, ArrowLeft } from "lucide-react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
+interface BlogPost {
+  id: number
+  title: string
+  content: string
+  excerpt: string | null
+  slug: string | null
+  status: string
+  featured_image: string | null
+  tags: string[] | null
+  author_id: number
+  published_at: string | null
+  created_at: string
+  updated_at: string
+}
 
+async function getBlogPost(slug: string): Promise<BlogPost | null> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/blogs/slug/${slug}`, {
+      cache: 'no-store'
+    })
+    if (response.ok) {
+      return await response.json()
+    }
+  } catch (error) {
+    console.error('Error fetching blog post:', error)
+  }
+
+  // Fallback to hardcoded data
   const posts = [
     {
-      tag: "Education",
+      id: 1,
       title: "Empowering the Next Generation of African Leaders",
-      excerpt:
-        "Discover how our scholarship program is creating opportunities for young minds to excel in top universities worldwide.",
-      author: "Sarah Johnson",
-      date: "January 15, 2025",
-      image: "/gallery/career-preview.jpg",
-      readTime: "5 min read",
-      slug: "empowering-next-generation-african-leaders",
       content: `
         <p>Discover how our scholarship program is creating opportunities for young minds to excel in top universities worldwide.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -25,18 +43,20 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         <h2>Our Mission</h2>
         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
         <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-      `
+      `,
+      excerpt: "Discover how our scholarship program is creating opportunities for young minds to excel in top universities worldwide.",
+      slug: "empowering-next-generation-african-leaders",
+      status: "published",
+      featured_image: "/gallery/career-preview.jpg",
+      tags: ["Education"],
+      author_id: 1,
+      published_at: "2025-01-15T00:00:00Z",
+      created_at: "2025-01-15T00:00:00Z",
+      updated_at: "2025-01-15T00:00:00Z"
     },
     {
-      tag: "Success Stories",
+      id: 2,
       title: "Breaking Barriers: Success Stories from Our Scholars",
-      excerpt:
-        "Read inspiring stories from our scholars who have overcome challenges to achieve academic excellence at prestigious institutions.",
-      author: "Michael Chen",
-      date: "January 10, 2025",
-      image: "/gallery/yale-scholar.jpeg",
-      readTime: "7 min read",
-      slug: "breaking-barriers-success-stories",
       content: `
         <p>Read inspiring stories from our scholars who have overcome challenges to achieve academic excellence at prestigious institutions.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -44,18 +64,20 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         <h2>Overcoming Challenges</h2>
         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
         <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-      `
+      `,
+      excerpt: "Read inspiring stories from our scholars who have overcome challenges to achieve academic excellence at prestigious institutions.",
+      slug: "breaking-barriers-success-stories",
+      status: "published",
+      featured_image: "/gallery/yale-scholar.jpeg",
+      tags: ["Success Stories"],
+      author_id: 1,
+      published_at: "2025-01-10T00:00:00Z",
+      created_at: "2025-01-10T00:00:00Z",
+      updated_at: "2025-01-10T00:00:00Z"
     },
     {
-      tag: "Mentorship",
+      id: 3,
       title: "The Impact of Mentorship in Academic Achievement",
-      excerpt:
-        "Learn how our mentorship program connects students with industry leaders to guide their academic and professional journey.",
-      author: "Dr. Amara Okafor",
-      date: "January 5, 2025",
-      image: "/gallery/grambling-scholar.png",
-      readTime: "6 min read",
-      slug: "impact-mentorship-academic-achievement",
       content: `
         <p>Learn how our mentorship program connects students with industry leaders to guide their academic and professional journey.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -63,11 +85,25 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         <h2>Building Connections</h2>
         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
         <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-      `
+      `,
+      excerpt: "Learn how our mentorship program connects students with industry leaders to guide their academic and professional journey.",
+      slug: "impact-mentorship-academic-achievement",
+      status: "published",
+      featured_image: "/gallery/grambling-scholar.png",
+      tags: ["Mentorship"],
+      author_id: 1,
+      published_at: "2025-01-05T00:00:00Z",
+      created_at: "2025-01-05T00:00:00Z",
+      updated_at: "2025-01-05T00:00:00Z"
     }
-  ];
+  ]
 
-  const post = posts.find(p => p.slug === slug);
+  return posts.find(p => p.slug === slug) || null
+}
+
+export default async function BlogPost({ params }: { params: { slug: string } }) {
+  const { slug } = await params
+  const post = await getBlogPost(slug)
 
   if (!post) {
     return (
@@ -87,7 +123,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         </main>
         <Footer />
       </div>
-    );
+    )
   }
 
   return (
@@ -107,16 +143,18 @@ export default async function BlogPost({ params }: { params: { slug: string } })
             <article className="bg-white rounded-2xl overflow-hidden shadow-lg">
               <div className="relative h-96 bg-gradient-to-br from-slate-200 to-slate-300 overflow-hidden">
                 <Image
-                  src={post.image}
+                  src={post.featured_image || "/gallery/career-preview.jpg"}
                   alt={post.title}
                   fill
                   className="object-cover"
                 />
-                <div className="absolute top-4 left-4">
-                  <span className="inline-block bg-[#facc15] text-[#002366] text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                    {post.tag}
-                  </span>
-                </div>
+                {post.tags && post.tags.length > 0 && (
+                  <div className="absolute top-4 left-4">
+                    <span className="inline-block bg-[#facc15] text-[#002366] text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                      {post.tags[0]}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div className="p-8 md:p-12">
@@ -128,14 +166,14 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4" />
-                      <span className="font-medium">{post.author}</span>
+                      <span className="font-medium">Author</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Calendar className="h-4 w-4" />
-                      <span>{post.date}</span>
+                      <span>{new Date(post.published_at || post.created_at).toLocaleDateString()}</span>
                     </div>
                   </div>
-                  <span className="text-slate-400">{post.readTime}</span>
+                  <span className="text-slate-400">5 min read</span>
                 </div>
 
                 <div className="prose prose-lg max-w-none text-slate-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: post.content }} />
@@ -147,5 +185,5 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
       <Footer />
     </div>
-  );
+  )
 }

@@ -66,34 +66,65 @@ export default function DonationForm() {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically process the payment and send data to your backend
-    console.log("Donation submitted:", { ...formData, donationType })
 
-    // Simulate payment processing
-    alert(`Thank you for your generous ${donationType} donation of $${formData.amount}! Your support makes a real difference.`)
+    // Submit to backend API
+    try {
+      const payload = {
+        donor_name: formData.anonymous ? null : `${formData.firstName} ${formData.lastName}`.trim(),
+        donor_email: formData.anonymous ? null : formData.email,
+        amount: parseFloat(formData.amount),
+        currency: "USD",
+        payment_method: formData.paymentMethod,
+        purpose: formData.message || null,
+        is_anonymous: formData.anonymous
+      }
 
-    setIsOpen(false)
-    // Reset form
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      amount: "",
-      paymentMethod: "card",
-      cardNumber: "",
-      expiryDate: "",
-      cvv: "",
-      billingAddress: "",
-      city: "",
-      state: "",
-      zipCode: "",
-      message: "",
-      anonymous: false
-    })
-    setCustomAmount("")
+      console.log('Submitting donation:', payload)
+
+      const res = await fetch("/api/donations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload)
+      })
+
+      if (!res.ok) {
+        const errorText = await res.text()
+        console.error('Server response:', errorText)
+        throw new Error(`Server error: ${res.status} - ${errorText}`)
+      }
+
+      const responseData = await res.json()
+      console.log('Success response:', responseData)
+
+      alert("Thank you for your generous donation! Your support makes a real difference.")
+      setIsOpen(false)
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        amount: "",
+        paymentMethod: "card",
+        cardNumber: "",
+        expiryDate: "",
+        cvv: "",
+        billingAddress: "",
+        city: "",
+        state: "",
+        zipCode: "",
+        message: "",
+        anonymous: false
+      })
+      setCustomAmount("")
+    } catch (err) {
+      console.error('Submission error:', err)
+      alert("Failed to process donation. Please try again later.")
+    }
   }
 
   return (

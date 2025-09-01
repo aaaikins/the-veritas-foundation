@@ -1,13 +1,16 @@
+"use client"
+
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Quote } from "lucide-react"
+import { useState, useEffect } from "react"
 
 const testimonials = [
   {
     name: "Maria Gonzalez",
     role: "Scholarship Recipient",
     university: "Stanford University",
-    quote: "The Veritas Foundation not only provided me with financial support but also connected me with incredible mentors who guided me through my academic journey. Their program gave me the confidence to pursue my dreams.",
+    quote: "The Veritas Foundation not only provided me with financial support but also connected me with incredible mentors who guided me through my academic journey.",
     image: "/placeholder-user.jpg",
     year: "2024"
   },
@@ -15,7 +18,7 @@ const testimonials = [
     name: "James Wilson",
     role: "Community Partner",
     organization: "Oakwood Community Center",
-    quote: "Working with the Veritas Foundation has been transformative for our community. Their commitment to educational equity and youth development has created lasting positive change in countless lives.",
+    quote: "Working with the Veritas Foundation has been transformative for our community. Their commitment to educational equity has created lasting positive change.",
     image: "/placeholder-user.jpg",
     year: "2023"
   },
@@ -23,7 +26,7 @@ const testimonials = [
     name: "Dr. Sarah Chen",
     role: "Mentor & Supporter",
     organization: "Harvard University",
-    quote: "I've had the privilege of mentoring several Veritas scholars, and their dedication and potential are truly inspiring. This foundation is doing essential work in breaking down barriers to higher education.",
+    quote: "I've had the privilege of mentoring several Veritas scholars, and their dedication and potential are truly inspiring. This foundation is doing essential work.",
     image: "/placeholder-user.jpg",
     year: "2024"
   },
@@ -31,7 +34,7 @@ const testimonials = [
     name: "Marcus Johnson",
     role: "Alumni Beneficiary",
     university: "Yale University",
-    quote: "Thanks to the Veritas Foundation's support, I was able to focus on my studies rather than financial worries. Today, I'm giving back by supporting the next generation of scholars through their mentorship program.",
+    quote: "Thanks to the Veritas Foundation's support, I was able to focus on my studies rather than financial worries. Today, I'm giving back through mentorship.",
     image: "/placeholder-user.jpg",
     year: "2022"
   },
@@ -39,7 +42,7 @@ const testimonials = [
     name: "Linda Rodriguez",
     role: "Parent & Volunteer",
     organization: "Veritas Foundation",
-    quote: "As a parent whose child benefited from the foundation's programs, I've seen firsthand how they transform lives. Their holistic approach addresses not just financial needs but emotional and academic support too.",
+    quote: "As a parent whose child benefited from the foundation's programs, I've seen firsthand how they transform lives with their holistic approach.",
     image: "/placeholder-user.jpg",
     year: "2024"
   },
@@ -47,15 +50,41 @@ const testimonials = [
     name: "Dr. Michael Thompson",
     role: "Corporate Partner",
     organization: "TechForward Inc.",
-    quote: "Our company's partnership with Veritas Foundation has been incredibly rewarding. We're proud to support an organization that creates pathways to opportunity and builds stronger, more diverse communities.",
+    quote: "Our company's partnership with Veritas Foundation has been incredibly rewarding. We're proud to support pathways to opportunity.",
     image: "/placeholder-user.jpg",
     year: "2023"
   }
 ]
 
 export default function Testimonials() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [fade, setFade] = useState(true)
+
+  // Auto-slide testimonials every 10 seconds with fade animation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFade(false)
+      setTimeout(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length)
+        setFade(true)
+      }, 300)
+    }, 10000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const handleIndexChange = (index: number) => {
+    if (index !== currentIndex) {
+      setFade(false)
+      setTimeout(() => {
+        setCurrentIndex(index)
+        setFade(true)
+      }, 300)
+    }
+  }
+
   return (
-    <section id="testimonials" className="w-full py-20 md:py-28 lg:py-36 bg-gradient-to-br from-slate-50 via-white to-slate-50">
+    <section id="testimonials" className="w-full py-20 md:py-28 lg:py-36 bg-gradient-to-br from-slate-50 via-white to-slate-50 overflow-hidden">
       <div className="container mx-auto px-6 md:px-8">
         <div className="text-center space-y-6 mb-16">
           <div className="inline-flex items-center gap-3 bg-[#facc15]/10 text-[#002366] px-5 py-3 rounded-full text-sm font-semibold border border-[#facc15]/20">
@@ -73,50 +102,77 @@ export default function Testimonials() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white relative overflow-hidden">
-              <div className="absolute top-4 right-4 text-[#facc15]/20 group-hover:text-[#facc15]/40 transition-colors duration-300">
-                <Quote className="w-8 h-8" />
-              </div>
-
-              <CardContent className="p-8">
-                <div className="space-y-6">
-                  <div className="space-y-4">
-                    <p className="text-slate-600 italic leading-relaxed text-sm md:text-base">
-                      "{testimonial.quote}"
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    <Avatar className="w-12 h-12 border-2 border-[#facc15]/20">
-                      <AvatarImage src={testimonial.image} alt={testimonial.name} />
-                      <AvatarFallback className="text-sm font-bold text-[#002366] bg-[#facc15]/10">
-                        {testimonial.name.split(' ').map(n => n[0]).join('')}
+        {/* Single testimonial display */}
+        <div className="relative w-full max-w-6xl mx-auto">
+          <Card className="w-full group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl bg-white rounded-2xl">
+            <CardContent className={`p-6 md:p-8 lg:p-12 transition-opacity duration-300 ${fade ? 'opacity-100' : 'opacity-0'}`}>
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center">
+                {/* Avatar Section */}
+                <div className="md:col-span-2 flex justify-center md:justify-start">
+                  <div className="relative">
+                    <div className="absolute -inset-3 bg-[#facc15]/20 rounded-full blur-sm group-hover:bg-[#facc15]/30 transition-colors duration-300"></div>
+                    <Avatar className="w-16 h-16 md:w-20 md:h-20 border-4 border-[#facc15]/20 shadow-lg relative z-10">
+                      <AvatarImage src={testimonials[currentIndex].image} alt={testimonials[currentIndex].name} />
+                      <AvatarFallback className="text-lg md:text-xl font-bold text-[#002366] bg-[#facc15]/10">
+                        {testimonials[currentIndex].name.split(' ').map(n => n[0]).join('')}
                       </AvatarFallback>
                     </Avatar>
-
-                    <div className="flex-1 space-y-1">
-                      <h4 className="font-semibold text-[#002366] text-sm md:text-base">
-                        {testimonial.name}
-                      </h4>
-                      <p className="text-slate-500 text-xs md:text-sm">
-                        {testimonial.role}
-                      </p>
-                      <p className="text-slate-400 text-xs">
-                        {testimonial.university || testimonial.organization} • {testimonial.year}
-                      </p>
+                    <div className="absolute -bottom-1 -right-1 bg-[#facc15] rounded-full p-1.5 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                      <Quote className="w-3 h-3 text-[#002366]" />
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+
+                {/* Quote Section */}
+                <div className="md:col-span-7 text-center md:text-left">
+                  <blockquote className="text-slate-700 italic leading-relaxed text-xl md:text-2xl lg:text-3xl font-light">
+                    "{testimonials[currentIndex].quote}"
+                  </blockquote>
+                </div>
+
+                {/* Author Info Section */}
+                <div className="md:col-span-3 text-center md:text-right space-y-2">
+                  <h4 className="font-bold text-[#002366] text-base md:text-lg lg:text-xl">
+                    {testimonials[currentIndex].name}
+                  </h4>
+                  <p className="text-slate-500 font-medium text-sm md:text-base">
+                    {testimonials[currentIndex].role}
+                  </p>
+                  <div className="text-slate-400 text-xs md:text-sm">
+                    {testimonials[currentIndex].university || testimonials[currentIndex].organization} • {testimonials[currentIndex].year}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Navigation Dots */}
+          <div className="flex justify-center space-x-3 mt-12">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handleIndexChange(index)}
+                className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                  index === currentIndex
+                    ? 'bg-[#facc15] scale-125 shadow-lg'
+                    : 'bg-slate-300 hover:bg-slate-400 hover:scale-110'
+                }`}
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Slide Counter */}
+          <div className="text-center mt-6">
+            <span className="text-slate-500 text-sm font-medium">
+              {currentIndex + 1} of {testimonials.length}
+            </span>
+          </div>
         </div>
 
         {/* Call to Action */}
         <div className="text-center mt-16">
-          <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-slate-100">
+          <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-slate-100 max-w-4xl mx-auto">
             <h3 className="text-2xl md:text-3xl font-bold text-[#002366] mb-4">
               Ready to Share Your Story?
             </h3>
@@ -126,7 +182,7 @@ export default function Testimonials() {
             </p>
             <a
               href="mailto:testimonials@veritasfoundation.org"
-              className="inline-flex items-center gap-2 bg-[#002366] hover:bg-[#002366]/90 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300"
+              className="inline-flex items-center gap-2 bg-[#002366] hover:bg-[#002366]/90 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-300 text-lg"
             >
               Share Your Story
             </a>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -28,6 +28,10 @@ export default function ApplicationForm() {
     availability: ""
   })
   const [resumeFile, setResumeFile] = useState<File | null>(null)
+  const [availablePrograms, setAvailablePrograms] = useState<Array<{id: number, name: string, description: string, category: string}>>([])
+  const [selectedProgramId, setSelectedProgramId] = useState<number | null>(null)
+  const [loadingPrograms, setLoadingPrograms] = useState(false)
+  const [programsError, setProgramsError] = useState<string | null>(null)
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -36,8 +40,58 @@ export default function ApplicationForm() {
     }))
   }
 
+  // Fetch available programs when dialog opens
+  useEffect(() => {
+    if (isOpen) {
+      // Reset states when dialog opens
+      setSelectedProgramId(null)
+      setProgramsError(null)
+      
+      if (availablePrograms.length === 0) {
+        setLoadingPrograms(true)
+        fetch('/api/applications/available-programs')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Failed to fetch programs')
+            }
+            return response.json()
+          })
+          .then(data => {
+            setAvailablePrograms(data)
+            // Set default program if available
+            if (data.length > 0) {
+              setSelectedProgramId(data[0].id)
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching programs:', error)
+            setProgramsError('Unable to load available programs. Please try again later.')
+          })
+          .finally(() => setLoadingPrograms(false))
+      } else {
+        // If programs are already loaded, just set the first one as default
+        if (availablePrograms.length > 0) {
+          setSelectedProgramId(availablePrograms[0].id)
+        }
+      }
+    }
+  }, [isOpen, availablePrograms.length])
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Validate that a program is selected
+    if (!selectedProgramId) {
+      alert("Please select a program before submitting.")
+      return
+    }
+    
+    // Check if there was an error loading programs
+    if (programsError) {
+      alert("Cannot submit application due to program loading error. Please refresh and try again.")
+      return
+    }
+    
     // Submit the data as JSON to match the backend API
     const submit = async () => {
       try {
@@ -46,7 +100,7 @@ export default function ApplicationForm() {
           applicant_name: `${formData.firstName} ${formData.lastName}`.trim(),
           applicant_email: formData.email,
           applicant_phone: formData.phone || null,
-          program_id: 6, // Use the default scholarship program ID
+          program_id: selectedProgramId, // Use the selected program ID
           application_data: {
             university: formData.university,
             major: formData.major,
@@ -100,6 +154,8 @@ export default function ApplicationForm() {
           availability: ""
         })
         setResumeFile(null)
+        setSelectedProgramId(null) // Reset selected program
+        setProgramsError(null) // Reset error state
       } catch (err) {
         console.error('Submission error:', err)
         alert("Failed to submit application. Please try again later.")
@@ -193,6 +249,48 @@ export default function ApplicationForm() {
                   className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]"
                 />
               </div>
+            </div>
+          </div>
+
+          {/* Program Selection */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-[#002366] flex items-center gap-2">
+              <GraduationCap className="h-5 w-5" />
+              Program Selection
+            </h3>
+            <div className="space-y-2">
+              <Label htmlFor="program" className="text-sm font-medium">Select Program *</Label>
+              {loadingPrograms ? (
+                <div className="flex items-center space-x-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#facc15]"></div>
+                  <span className="text-sm text-gray-600">Loading programs...</span>
+                </div>
+              ) : programsError ? (
+                <div className="text-sm text-red-600 bg-red-50 p-3 rounded-md">
+                  {programsError}
+                </div>
+              ) : (
+                <Select 
+                  value={selectedProgramId?.toString()} 
+                  onValueChange={(value) => setSelectedProgramId(parseInt(value))}
+                >
+                  <SelectTrigger className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]">
+                    <SelectValue placeholder="Select a program" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availablePrograms.map((program) => (
+                      <SelectItem key={program.id} value={program.id.toString()}>
+                        {program.name} - {program.category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+              {selectedProgramId && availablePrograms.length > 0 && !programsError && (
+                <p className="text-sm text-gray-600">
+                  {availablePrograms.find(p => p.id === selectedProgramId)?.description}
+                </p>
+              )}
             </div>
           </div>
 
