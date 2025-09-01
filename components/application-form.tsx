@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -28,10 +28,6 @@ export default function ApplicationForm() {
     availability: ""
   })
   const [resumeFile, setResumeFile] = useState<File | null>(null)
-  const [availablePrograms, setAvailablePrograms] = useState<Array<{id: number, name: string, description: string, category: string}>>([])
-  const [selectedProgramId, setSelectedProgramId] = useState<number | null>(null)
-  const [loadingPrograms, setLoadingPrograms] = useState(false)
-  const [programsError, setProgramsError] = useState<string | null>(null)
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -40,57 +36,8 @@ export default function ApplicationForm() {
     }))
   }
 
-  // Fetch available programs when dialog opens
-  useEffect(() => {
-    if (isOpen) {
-      // Reset states when dialog opens
-      setSelectedProgramId(null)
-      setProgramsError(null)
-      
-      if (availablePrograms.length === 0) {
-        setLoadingPrograms(true)
-        fetch('/api/applications/available-programs')
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Failed to fetch programs')
-            }
-            return response.json()
-          })
-          .then(data => {
-            setAvailablePrograms(data)
-            // Set default program if available
-            if (data.length > 0) {
-              setSelectedProgramId(data[0].id)
-            }
-          })
-          .catch(error => {
-            console.error('Error fetching programs:', error)
-            setProgramsError('Unable to load available programs. Please try again later.')
-          })
-          .finally(() => setLoadingPrograms(false))
-      } else {
-        // If programs are already loaded, just set the first one as default
-        if (availablePrograms.length > 0) {
-          setSelectedProgramId(availablePrograms[0].id)
-        }
-      }
-    }
-  }, [isOpen, availablePrograms.length])
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Validate that a program is selected
-    if (!selectedProgramId) {
-      alert("Please select a program before submitting.")
-      return
-    }
-    
-    // Check if there was an error loading programs
-    if (programsError) {
-      alert("Cannot submit application due to program loading error. Please refresh and try again.")
-      return
-    }
     
     // Submit the data as JSON to match the backend API
     const submit = async () => {
@@ -100,7 +47,6 @@ export default function ApplicationForm() {
           applicant_name: `${formData.firstName} ${formData.lastName}`.trim(),
           applicant_email: formData.email,
           applicant_phone: formData.phone || null,
-          program_id: selectedProgramId, // Use the selected program ID
           application_data: {
             university: formData.university,
             major: formData.major,
@@ -154,8 +100,6 @@ export default function ApplicationForm() {
           availability: ""
         })
         setResumeFile(null)
-        setSelectedProgramId(null) // Reset selected program
-        setProgramsError(null) // Reset error state
       } catch (err) {
         console.error('Submission error:', err)
         alert("Failed to submit application. Please try again later.")
@@ -180,43 +124,56 @@ export default function ApplicationForm() {
           >
             <GraduationCap className="mr-3 h-5 w-5 group-hover:animate-pulse" />
             Apply Now
+            <div className="ml-2 w-2 h-2 bg-[#002366] rounded-full animate-pulse"></div>
           </Button>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto bg-white">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-[#002366] flex items-center gap-2">
-            <GraduationCap className="h-6 w-6 text-[#facc15]" />
-            Scholarship Application
+      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-white border-0 shadow-2xl">
+        <DialogHeader className="pb-6 border-b border-slate-100">
+          <DialogTitle className="text-2xl font-bold text-[#002366] flex items-center gap-3">
+            <div className="w-10 h-10 bg-[#facc15]/10 rounded-lg flex items-center justify-center">
+              <GraduationCap className="h-6 w-6 text-[#facc15]" />
+            </div>
+            General Application
           </DialogTitle>
+          <p className="text-slate-600 text-sm mt-2">
+            Join The Veritas Foundation community. Fill out the form below to apply for our programs.
+          </p>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-6 mt-6">
-          {/* Personal Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-[#002366] flex items-center gap-2">
-              <User className="h-5 w-5" />
-              Personal Information
-            </h3>
+            <div className="flex items-center gap-3 pb-2 border-b border-slate-100">
+              <div className="w-8 h-8 bg-[#002366]/10 rounded-lg flex items-center justify-center">
+                <User className="h-4 w-4 text-[#002366]" />
+              </div>
+              <h3 className="text-lg font-semibold text-[#002366]">Personal Information</h3>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName" className="text-sm font-medium">First Name *</Label>
+                <Label htmlFor="firstName" className="text-sm font-medium flex items-center gap-1">
+                  First Name 
+                  <span className="text-red-500">*</span>
+                </Label>
                 <Input
                   id="firstName"
                   value={formData.firstName}
                   onChange={(e) => handleInputChange("firstName", e.target.value)}
                   required
-                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]"
+                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] transition-all duration-200"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName" className="text-sm font-medium">Last Name *</Label>
+                <Label htmlFor="lastName" className="text-sm font-medium flex items-center gap-1">
+                  Last Name 
+                  <span className="text-red-500">*</span>
+                </Label>
                 <Input
                   id="lastName"
                   value={formData.lastName}
                   onChange={(e) => handleInputChange("lastName", e.target.value)}
                   required
-                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]"
+                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] transition-all duration-200"
                 />
               </div>
             </div>
@@ -225,7 +182,8 @@ export default function ApplicationForm() {
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-sm font-medium flex items-center gap-2">
                   <Mail className="h-4 w-4" />
-                  Email *
+                  Email 
+                  <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="email"
@@ -233,7 +191,7 @@ export default function ApplicationForm() {
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
                   required
-                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]"
+                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] transition-all duration-200"
                 />
               </div>
               <div className="space-y-2">
@@ -246,60 +204,20 @@ export default function ApplicationForm() {
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => handleInputChange("phone", e.target.value)}
-                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]"
+                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] transition-all duration-200"
                 />
               </div>
             </div>
           </div>
 
-          {/* Program Selection */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-[#002366] flex items-center gap-2">
-              <GraduationCap className="h-5 w-5" />
-              Program Selection
-            </h3>
-            <div className="space-y-2">
-              <Label htmlFor="program" className="text-sm font-medium">Select Program *</Label>
-              {loadingPrograms ? (
-                <div className="flex items-center space-x-2">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#facc15]"></div>
-                  <span className="text-sm text-gray-600">Loading programs...</span>
-                </div>
-              ) : programsError ? (
-                <div className="text-sm text-red-600 bg-red-50 p-3 rounded-md">
-                  {programsError}
-                </div>
-              ) : (
-                <Select 
-                  value={selectedProgramId?.toString()} 
-                  onValueChange={(value) => setSelectedProgramId(parseInt(value))}
-                >
-                  <SelectTrigger className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]">
-                    <SelectValue placeholder="Select a program" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {availablePrograms.map((program) => (
-                      <SelectItem key={program.id} value={program.id.toString()}>
-                        {program.name} - {program.category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
-              {selectedProgramId && availablePrograms.length > 0 && !programsError && (
-                <p className="text-sm text-gray-600">
-                  {availablePrograms.find(p => p.id === selectedProgramId)?.description}
-                </p>
-              )}
-            </div>
-          </div>
-
           {/* Academic Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-[#002366] flex items-center gap-2">
-              <GraduationCap className="h-5 w-5" />
-              Academic Information
-            </h3>
+            <div className="flex items-center gap-3 pb-2 border-b border-slate-100">
+              <div className="w-8 h-8 bg-[#facc15]/10 rounded-lg flex items-center justify-center">
+                <GraduationCap className="h-4 w-4 text-[#002366]" />
+              </div>
+              <h3 className="text-lg font-semibold text-[#002366]">Academic Information</h3>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="university" className="text-sm font-medium">High School/University</Label>
@@ -309,7 +227,7 @@ export default function ApplicationForm() {
                   onChange={(e) => handleInputChange("university", e.target.value)}
                   // required
                   placeholder="e.g., Harvard University"
-                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]"
+                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] transition-all duration-200"
                 />
               </div>
               <div className="space-y-2">
@@ -320,7 +238,7 @@ export default function ApplicationForm() {
                   onChange={(e) => handleInputChange("major", e.target.value)}
                   // required
                   placeholder="e.g., Computer Science"
-                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]"
+                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] transition-all duration-200"
                 />
               </div>
             </div>
@@ -333,16 +251,21 @@ export default function ApplicationForm() {
                   value={formData.gpa}
                   onChange={(e) => handleInputChange("gpa", e.target.value)}
                   placeholder="e.g., 3.8"
-                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]"
+                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] transition-all duration-200"
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="graduationYear" className="text-sm font-medium">Graduation Year</Label>
                 <Select onValueChange={(value) => handleInputChange("graduationYear", value)}>
-                  <SelectTrigger className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]">
+                  <SelectTrigger className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] transition-all duration-200">
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="2015">2015</SelectItem>
+                    <SelectItem value="2016">2016</SelectItem>
+                    <SelectItem value="2017">2017</SelectItem>
+                    <SelectItem value="2018">2018</SelectItem>
+                    <SelectItem value="2019">2019</SelectItem>
                     <SelectItem value="2020">2020</SelectItem>
                     <SelectItem value="2021">2021</SelectItem>
                     <SelectItem value="2022">2022</SelectItem>
@@ -353,6 +276,7 @@ export default function ApplicationForm() {
                     <SelectItem value="2027">2027</SelectItem>
                     <SelectItem value="2028">2028</SelectItem>
                     <SelectItem value="2029">2029</SelectItem>
+                    <SelectItem value="2030">2030</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -383,12 +307,17 @@ export default function ApplicationForm() {
 
           {/* Role / Application Details */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-[#002366]">Application Details</h3>
+            <div className="flex items-center gap-3 pb-2 border-b border-slate-100">
+              <div className="w-8 h-8 bg-[#002366]/10 rounded-lg flex items-center justify-center">
+                <FileText className="h-4 w-4 text-[#002366]" />
+              </div>
+              <h3 className="text-lg font-semibold text-[#002366]">Application Details</h3>
+            </div>
 
             <div className="space-y-2">
               <Label htmlFor="roleOfInterest" className="text-sm font-medium">Role of Interest</Label>
               <Select value={formData.roleOfInterest} onValueChange={(value) => handleInputChange("roleOfInterest", value)}>
-                <SelectTrigger className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]">
+                <SelectTrigger className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] transition-all duration-200">
                   <SelectValue placeholder="Select a role" />
                 </SelectTrigger>
                 <SelectContent>
@@ -409,7 +338,7 @@ export default function ApplicationForm() {
                 onChange={(e) => handleInputChange("relevantExperience", e.target.value)}
                 rows={4}
                 placeholder="Tell us about your relevant experience..."
-                className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] resize-none"
+                className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] resize-none transition-all duration-200"
               />
             </div>
 
@@ -421,7 +350,7 @@ export default function ApplicationForm() {
                 onChange={(e) => handleInputChange("motivation", e.target.value)}
                 rows={4}
                 placeholder="What motivates you to join The Veritas Foundation?"
-                className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] resize-none"
+                className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] resize-none transition-all duration-200"
               />
             </div>
 
@@ -433,19 +362,42 @@ export default function ApplicationForm() {
                 onChange={(e) => handleInputChange("availability", e.target.value)}
                 rows={2}
                 placeholder="When are you available to contribute?"
-                className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] resize-none"
+                className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] resize-none transition-all duration-200"
               />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="resume" className="text-sm font-medium">Upload Resume/CV (optional)</Label>
-              <input
-                id="resume"
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={handleFileChange}
-                className="mt-1"
-              />
+              <div className="relative">
+                <input
+                  id="resume"
+                  type="file"
+                  accept=".pdf,.doc,.docx"
+                  onChange={handleFileChange}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                />
+                <div className="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:border-[#facc15] hover:bg-[#facc15]/5 transition-all duration-300 group">
+                  <div className="flex flex-col items-center space-y-3">
+                    <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center group-hover:bg-[#facc15]/10 transition-colors duration-300">
+                      <FileText className="w-6 h-6 text-slate-400 group-hover:text-[#002366] transition-colors duration-300" />
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-sm font-medium text-slate-700">
+                        {resumeFile ? resumeFile.name : "Click to upload or drag and drop"}
+                      </p>
+                      <p className="text-xs text-slate-500">
+                        PDF, DOC, DOCX up to 10MB
+                      </p>
+                    </div>
+                    {resumeFile && (
+                      <div className="flex items-center gap-2 text-xs text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        File selected
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -471,19 +423,19 @@ export default function ApplicationForm() {
           </div> */}
 
           {/* Submit Button */}
-          <div className="flex justify-end gap-4 pt-6 border-t">
+          <div className="flex flex-col sm:flex-row justify-end gap-4 pt-6 border-t border-slate-200">
             <Button
               type="button"
               variant="outline"
               onClick={() => setIsOpen(false)}
-              className="px-6"
+              className="px-6 py-3 border-slate-300 hover:border-slate-400 hover:bg-slate-50 transition-all duration-200"
             >
               <X className="mr-2 h-4 w-4" />
               Cancel
             </Button>
             <Button
               type="submit"
-              className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90 px-8"
+              className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90 px-8 py-3 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 font-semibold"
             >
               <Send className="mr-2 h-4 w-4" />
               Submit Application

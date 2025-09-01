@@ -63,7 +63,7 @@ export default function Header() {
 
         <div className="hidden md:block">
           <Button asChild className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold px-6 py-3 group">
-            <Link href="#donate">
+            <Link href="/donate">
               <HeartHandshake className="mr-2 h-4 w-4 group-hover:animate-pulse" />
               Donate
             </Link>

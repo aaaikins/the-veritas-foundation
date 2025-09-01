@@ -23,7 +23,7 @@ export default function HomePage() {
         <Gallery />
         <BlogSection />
         <Testimonials />
-        <Donation />
+        {/* <Donation /> */}
       </main>
       <Footer />
     </div>
