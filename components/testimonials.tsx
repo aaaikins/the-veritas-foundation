@@ -182,7 +182,7 @@ export default function Testimonials() {
             </p>
             <a
               href="mailto:testimonials@veritasfoundation.org"
-              className="inline-flex items-center gap-2 bg-[#002366] hover:bg-[#002366]/90 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-300 text-lg"
+              className="inline-flex items-center gap-2 bg-[#002366] hover:bg-[#002366]/90 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-300 text-lg hover:scale-105 transition-all"
             >
               Share Your Story
             </a>

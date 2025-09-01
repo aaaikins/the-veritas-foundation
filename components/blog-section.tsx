@@ -224,7 +224,7 @@ export default function BlogSection() {
 
         <div className="text-center mt-12">
           <Link href="/blogs">
-            <button className="inline-flex items-center gap-3 bg-[#002366] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#002366]/90 transition-colors duration-300 shadow-lg hover:shadow-xl">
+            <button className="inline-flex items-center gap-3 bg-[#002366] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#002366]/90 transition-colors duration-300 shadow-lg hover:shadow-xl hover:scale-105 transition-all">
               View All Posts
               <ArrowRight className="h-5 w-5" />
             </button>

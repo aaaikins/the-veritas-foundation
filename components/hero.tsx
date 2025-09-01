@@ -7,8 +7,7 @@ import Image from "next/image"
 import DonationForm from "@/components/donation-form"
 import { useState } from "react"
 
-function Hero(props: { id: string }) {
-    const { id } = props;
+function Hero() {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleJoinUsClick = async () => {
@@ -19,7 +18,7 @@ function Hero(props: { id: string }) {
     };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white" id="hero">
       {/* The main hero container now has a background image */}
       <div
         className="relative rounded-b-[4rem] md:rounded-b-[6rem] pt-24 md:pt-32 pb-24 px-6 md:px-12 text-center bg-cover bg-center text-white overflow-hidden"
