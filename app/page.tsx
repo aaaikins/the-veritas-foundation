@@ -10,7 +10,6 @@ import BlogSection from "@/components/blog-section"
 import Footer from "@/components/footer"
 import Hero from "@/components/hero"
 import DonationForm from "@/components/donation-form"
-import TeamMembers from "@/components/team-members"
 import Testimonials from "@/components/testimonials"
 // import ApplicationForm from "@/components/application-form"
 
@@ -44,6 +43,13 @@ export default function HomePage() {
                     pursue their dreams, we have been transforming lives through comprehensive scholarship programs,
                     mentorship initiatives, and community empowerment projects since our inception.
                   </p>
+                  <div className="pt-4">
+                    <Link href="/about">
+                      <Button className="bg-[#002366] hover:bg-[#002366]/90 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-300 text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+                        Learn More
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
               <div className="flex items-center justify-center">
@@ -61,23 +67,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Mission and Vision below */}
-            <div className="grid gap-8 md:grid-cols-2">
-              <div className="bg-gradient-to-br from-slate-50 to-white p-8 rounded-2xl border-l-4 border-[#facc15] shadow-lg hover:shadow-xl transition-all duration-300">
-                <h3 className="text-2xl font-bold text-[#002366] mb-4">Mission</h3>
-                <p className="text-slate-600 leading-relaxed text-lg">
-                  To empower individuals by providing access to education, mentorship, and resources, enabling them
-                  to realize their full potential and contribute meaningfully to society.
-                </p>
-              </div>
-              <div className="bg-gradient-to-br from-slate-50 to-white p-8 rounded-2xl border-l-4 border-[#002366] shadow-lg hover:shadow-xl transition-all duration-300">
-                <h3 className="text-2xl font-bold text-[#002366] mb-4">Vision</h3>
-                <p className="text-slate-600 leading-relaxed text-lg">
-                  A world where every person has the opportunity to pursue their dreams and create a better future
-                  for themselves and their communities, free from systemic barriers.
-                </p>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -86,7 +75,6 @@ export default function HomePage() {
         <Gallery />
         <BlogSection />
         <Testimonials />
-        <TeamMembers />
 
         {/* Donation Section */}
         <section id="donate" className="w-full py-20 md:py-28 lg:py-36 bg-gradient-to-br from-slate-50 via-white to-slate-50 relative overflow-hidden">
