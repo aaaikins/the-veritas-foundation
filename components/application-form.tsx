@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -9,24 +9,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { X, User, Mail, Phone, GraduationCap, FileText, Send, Loader2 } from "lucide-react"
 
-interface Program {
-  id: number
-  name: string
-  description: string
-  category: string
-}
-
 export default function ApplicationForm() {
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [programs, setPrograms] = useState<Program[]>([])
-  const [isLoadingPrograms, setIsLoadingPrograms] = useState(false)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-    programId: "",
     university: "",
     major: "",
     gpa: "",
@@ -37,31 +27,6 @@ export default function ApplicationForm() {
     availability: ""
   })
   const [resumeFile, setResumeFile] = useState<File | null>(null)
-
-  // Fetch available programs when component mounts
-  useEffect(() => {
-    const fetchPrograms = async () => {
-      setIsLoadingPrograms(true)
-      try {
-        const res = await fetch("/api/applications/available-programs")
-        if (!res.ok) {
-          throw new Error(`Failed to fetch programs: ${res.status}`)
-        }
-        const data = await res.json()
-        setPrograms(data)
-      } catch (err) {
-        console.error('Error fetching programs:', err)
-        // Fallback to empty array
-        setPrograms([])
-      } finally {
-        setIsLoadingPrograms(false)
-      }
-    }
-
-    if (isOpen) {
-      fetchPrograms()
-    }
-  }, [isOpen])
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -80,7 +45,6 @@ export default function ApplicationForm() {
         applicant_name: `${formData.firstName} ${formData.lastName}`.trim(),
         applicant_email: formData.email,
         applicant_phone: formData.phone || null,
-        program_id: parseInt(formData.programId),
         application_data: {
           university: formData.university,
           major: formData.major,
@@ -120,7 +84,6 @@ export default function ApplicationForm() {
         lastName: "",
         email: "",
         phone: "",
-        programId: "",
         university: "",
         major: "",
         gpa: "",
@@ -240,48 +203,7 @@ export default function ApplicationForm() {
             </div>
           </div>
 
-          {/* Program Selection */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 pb-2 border-b border-slate-100">
-              <div className="w-8 h-8 bg-[#facc15]/10 rounded-lg flex items-center justify-center">
-                <GraduationCap className="h-4 w-4 text-[#002366]" />
-              </div>
-              <h3 className="text-lg font-semibold text-[#002366]">Program Selection</h3>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="programId" className="text-sm font-medium flex items-center gap-1">
-                Select Program 
-                <span className="text-red-500">*</span>
-              </Label>
-              {isLoadingPrograms ? (
-                <div className="flex items-center gap-2 p-3 border border-slate-300 rounded-lg">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  <span className="text-sm text-slate-600">Loading programs...</span>
-                </div>
-              ) : (
-                <Select value={formData.programId} onValueChange={(value) => handleInputChange("programId", value)} required>
-                  <SelectTrigger className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] transition-all duration-200">
-                    <SelectValue placeholder="Choose a program to apply for" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {programs.map((program) => (
-                      <SelectItem key={program.id} value={program.id.toString()}>
-                        <div className="flex flex-col">
-                          <span className="font-medium">{program.name}</span>
-                          <span className="text-xs text-slate-500">{program.category}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
-              {programs.length === 0 && !isLoadingPrograms && (
-                <p className="text-sm text-slate-500 mt-2">
-                  No programs are currently available for applications.
-                </p>
-              )}
-            </div>
-          </div>
+          {/* Academic Information */}
           {/* Academic Information */}
           <div className="space-y-4">
             <div className="flex items-center gap-3 pb-2 border-b border-slate-100">
@@ -509,7 +431,7 @@ export default function ApplicationForm() {
             <Button
               type="submit"
               className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90 px-8 py-3 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 font-semibold disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
-              disabled={isLoading || !formData.firstName || !formData.lastName || !formData.email || !formData.programId}
+              disabled={isLoading || !formData.firstName || !formData.lastName || !formData.email}
             >
               {isLoading ? (
                 <>

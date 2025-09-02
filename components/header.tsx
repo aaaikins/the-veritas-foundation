@@ -24,7 +24,7 @@ export default function Header() {
     { href: "#mission", label: "About Us" },
     { href: "#achievements", label: "Impact" },
     { href: "#blogs", label: "Blog" },
-    { href: "#gallery", label: "Gallery" },
+    { href: "/gallery", label: "Gallery" },
     { href: "#testimonials", label: "Testimonials" },
   ]
 
