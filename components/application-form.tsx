@@ -1,33 +1,67 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { X, User, Mail, Phone, GraduationCap, FileText, Send } from "lucide-react"
+import { X, User, Mail, Phone, GraduationCap, FileText, Send, Loader2 } from "lucide-react"
+
+interface Program {
+  id: number
+  name: string
+  description: string
+  category: string
+}
 
 export default function ApplicationForm() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [programs, setPrograms] = useState<Program[]>([])
+  const [isLoadingPrograms, setIsLoadingPrograms] = useState(false)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
+    programId: "",
     university: "",
     major: "",
     gpa: "",
     graduationYear: "",
-    essay: "",
-    references: "",
     roleOfInterest: "",
     relevantExperience: "",
     motivation: "",
     availability: ""
   })
   const [resumeFile, setResumeFile] = useState<File | null>(null)
+
+  // Fetch available programs when component mounts
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      setIsLoadingPrograms(true)
+      try {
+        const res = await fetch("/api/applications/available-programs")
+        if (!res.ok) {
+          throw new Error(`Failed to fetch programs: ${res.status}`)
+        }
+        const data = await res.json()
+        setPrograms(data)
+      } catch (err) {
+        console.error('Error fetching programs:', err)
+        // Fallback to empty array
+        setPrograms([])
+      } finally {
+        setIsLoadingPrograms(false)
+      }
+    }
+
+    if (isOpen) {
+      fetchPrograms()
+    }
+  }, [isOpen])
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -36,77 +70,73 @@ export default function ApplicationForm() {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Submit the data as JSON to match the backend API
-    const submit = async () => {
-      try {
-        // Construct the payload to match the backend ApplicationCreate model
-        const payload = {
-          applicant_name: `${formData.firstName} ${formData.lastName}`.trim(),
-          applicant_email: formData.email,
-          applicant_phone: formData.phone || null,
-          application_data: {
-            university: formData.university,
-            major: formData.major,
-            gpa: formData.gpa,
-            graduationYear: formData.graduationYear,
-            roleOfInterest: formData.roleOfInterest,
-            relevantExperience: formData.relevantExperience,
-            motivation: formData.motivation,
-            availability: formData.availability,
-            // essay: formData.essay,
-            // references: formData.references,
-          }
+    setIsLoading(true)
+
+    try {
+      // Construct the payload to match the backend ApplicationCreate model
+      const payload = {
+        applicant_name: `${formData.firstName} ${formData.lastName}`.trim(),
+        applicant_email: formData.email,
+        applicant_phone: formData.phone || null,
+        program_id: parseInt(formData.programId),
+        application_data: {
+          university: formData.university,
+          major: formData.major,
+          gpa: formData.gpa,
+          graduationYear: formData.graduationYear,
+          roleOfInterest: formData.roleOfInterest,
+          relevantExperience: formData.relevantExperience,
+          motivation: formData.motivation,
+          availability: formData.availability,
         }
-
-        console.log('Submitting application:', payload)
-
-        const res = await fetch("/api/applications", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload)
-        })
-
-        if (!res.ok) {
-          const errorText = await res.text()
-          console.error('Server response:', errorText)
-          throw new Error(`Server error: ${res.status} - ${errorText}`)
-        }
-
-        const responseData = await res.json()
-        console.log('Success response:', responseData)
-
-        alert("Thank you for your application! We'll be in touch soon.")
-        setIsOpen(false)
-        // Reset form
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          university: "",
-          major: "",
-          gpa: "",
-          graduationYear: "",
-          essay: "",
-          references: "",
-          roleOfInterest: "",
-          relevantExperience: "",
-          motivation: "",
-          availability: ""
-        })
-        setResumeFile(null)
-      } catch (err) {
-        console.error('Submission error:', err)
-        alert("Failed to submit application. Please try again later.")
       }
-    }
 
-    submit()
+      console.log('Submitting application:', payload)
+
+      const res = await fetch("/api/applications", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload)
+      })
+
+      if (!res.ok) {
+        const errorText = await res.text()
+        console.error('Server response:', errorText)
+        throw new Error(`Server error: ${res.status} - ${errorText}`)
+      }
+
+      const responseData = await res.json()
+      console.log('Success response:', responseData)
+
+      alert("Thank you for your application! We'll be in touch soon.")
+      setIsOpen(false)
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        programId: "",
+        university: "",
+        major: "",
+        gpa: "",
+        graduationYear: "",
+        roleOfInterest: "",
+        relevantExperience: "",
+        motivation: "",
+        availability: ""
+      })
+      setResumeFile(null)
+    } catch (err) {
+      console.error('Submission error:', err)
+      alert("Failed to submit application. Please try again later.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -210,6 +240,48 @@ export default function ApplicationForm() {
             </div>
           </div>
 
+          {/* Program Selection */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 pb-2 border-b border-slate-100">
+              <div className="w-8 h-8 bg-[#facc15]/10 rounded-lg flex items-center justify-center">
+                <GraduationCap className="h-4 w-4 text-[#002366]" />
+              </div>
+              <h3 className="text-lg font-semibold text-[#002366]">Program Selection</h3>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="programId" className="text-sm font-medium flex items-center gap-1">
+                Select Program 
+                <span className="text-red-500">*</span>
+              </Label>
+              {isLoadingPrograms ? (
+                <div className="flex items-center gap-2 p-3 border border-slate-300 rounded-lg">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span className="text-sm text-slate-600">Loading programs...</span>
+                </div>
+              ) : (
+                <Select value={formData.programId} onValueChange={(value) => handleInputChange("programId", value)} required>
+                  <SelectTrigger className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] transition-all duration-200">
+                    <SelectValue placeholder="Choose a program to apply for" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {programs.map((program) => (
+                      <SelectItem key={program.id} value={program.id.toString()}>
+                        <div className="flex flex-col">
+                          <span className="font-medium">{program.name}</span>
+                          <span className="text-xs text-slate-500">{program.category}</span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+              {programs.length === 0 && !isLoadingPrograms && (
+                <p className="text-sm text-slate-500 mt-2">
+                  No programs are currently available for applications.
+                </p>
+              )}
+            </div>
+          </div>
           {/* Academic Information */}
           <div className="space-y-4">
             <div className="flex items-center gap-3 pb-2 border-b border-slate-100">
@@ -429,16 +501,27 @@ export default function ApplicationForm() {
               variant="outline"
               onClick={() => setIsOpen(false)}
               className="px-6 py-3 border-slate-300 hover:border-slate-400 hover:bg-slate-50 transition-all duration-200"
+              disabled={isLoading}
             >
               <X className="mr-2 h-4 w-4" />
               Cancel
             </Button>
             <Button
               type="submit"
-              className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90 px-8 py-3 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 font-semibold"
+              className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90 px-8 py-3 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 font-semibold disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
+              disabled={isLoading || !formData.firstName || !formData.lastName || !formData.email || !formData.programId}
             >
-              <Send className="mr-2 h-4 w-4" />
-              Submit Application
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Submitting...
+                </>
+              ) : (
+                <>
+                  <Send className="mr-2 h-4 w-4" />
+                  Submit Application
+                </>
+              )}
             </Button>
           </div>
         </form>

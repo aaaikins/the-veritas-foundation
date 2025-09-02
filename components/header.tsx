@@ -25,7 +25,7 @@ export default function Header() {
     { href: "#achievements", label: "Impact" },
     { href: "#blogs", label: "Blog" },
     { href: "#gallery", label: "Gallery" },
-    { href: "#donate", label: "Support" },
+    { href: "#testimonials", label: "Testimonials" },
   ]
 
   return (

@@ -68,9 +68,19 @@ export default function DonationForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsLoading(true)
 
-    // Submit to backend API
     try {
+      // Validate required fields
+      if (!formData.amount) {
+        throw new Error("Please select a donation amount")
+      }
+
+      if (!formData.anonymous && (!formData.firstName || !formData.lastName || !formData.email)) {
+        throw new Error("Please fill in all required fields")
+      }
+
+      // Submit to backend API
       const payload = {
         donor_name: formData.anonymous ? null : `${formData.firstName} ${formData.lastName}`.trim(),
         donor_email: formData.anonymous ? null : formData.email,
@@ -123,7 +133,10 @@ export default function DonationForm() {
       setCustomAmount("")
     } catch (err) {
       console.error('Submission error:', err)
-      alert("Failed to process donation. Please try again later.")
+      const errorMessage = err instanceof Error ? err.message : "Failed to process donation. Please try again later."
+      alert(errorMessage)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -224,23 +237,29 @@ export default function DonationForm() {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName" className="text-sm font-medium">First Name *</Label>
+                <Label htmlFor="firstName" className="text-sm font-medium">
+                  First Name {formData.anonymous ? "(Optional)" : "*"}
+                </Label>
                 <Input
                   id="firstName"
                   value={formData.firstName}
                   onChange={(e) => handleInputChange("firstName", e.target.value)}
-                  required
-                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]"
+                  required={!formData.anonymous}
+                  disabled={formData.anonymous}
+                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] disabled:bg-slate-50 disabled:text-slate-400"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName" className="text-sm font-medium">Last Name *</Label>
+                <Label htmlFor="lastName" className="text-sm font-medium">
+                  Last Name {formData.anonymous ? "(Optional)" : "*"}
+                </Label>
                 <Input
                   id="lastName"
                   value={formData.lastName}
                   onChange={(e) => handleInputChange("lastName", e.target.value)}
-                  required
-                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]"
+                  required={!formData.anonymous}
+                  disabled={formData.anonymous}
+                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] disabled:bg-slate-50 disabled:text-slate-400"
                 />
               </div>
             </div>
@@ -249,15 +268,16 @@ export default function DonationForm() {
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-sm font-medium flex items-center gap-2">
                   <Mail className="h-4 w-4" />
-                  Email *
+                  Email {formData.anonymous ? "(Optional)" : "*"}
                 </Label>
                 <Input
                   id="email"
                   type="email"
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
-                  required
-                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15]"
+                  required={!formData.anonymous}
+                  disabled={formData.anonymous}
+                  className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] disabled:bg-slate-50 disabled:text-slate-400"
                 />
               </div>
               <div className="space-y-2">
@@ -390,6 +410,20 @@ export default function DonationForm() {
                 className="border-slate-300 focus:border-[#facc15] focus:ring-[#facc15] resize-none"
               />
             </div>
+
+            {/* Anonymous Donation Option */}
+            <div className="flex items-center space-x-2 pt-2">
+              <input
+                type="checkbox"
+                id="anonymous"
+                checked={formData.anonymous}
+                onChange={(e) => handleInputChange("anonymous", e.target.checked)}
+                className="rounded border-slate-300 text-[#002366] focus:ring-[#facc15]"
+              />
+              <Label htmlFor="anonymous" className="text-sm font-medium text-slate-600">
+                Make this donation anonymous
+              </Label>
+            </div>
           </div>
 
           {/* Submit Button */}
@@ -399,16 +433,26 @@ export default function DonationForm() {
               variant="outline"
               onClick={() => setIsOpen(false)}
               className="px-6"
+              disabled={isLoading}
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90 px-8"
-              disabled={!formData.amount || !formData.firstName || !formData.lastName || !formData.email}
+              className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90 px-8 disabled:opacity-70 disabled:cursor-not-allowed"
+              disabled={isLoading || !formData.amount || (!formData.anonymous && (!formData.firstName || !formData.lastName || !formData.email))}
             >
-              <HeartHandshake className="mr-2 h-4 w-4" />
-              Donate ${formData.amount || '0'}
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <HeartHandshake className="mr-2 h-4 w-4" />
+                  Donate ${formData.amount || '0'}
+                </>
+              )}
             </Button>
           </div>
         </form>
