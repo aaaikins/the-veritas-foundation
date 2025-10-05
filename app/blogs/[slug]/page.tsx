@@ -101,7 +101,7 @@ async function getBlogPost(slug: string): Promise<BlogPost | null> {
   return posts.find(p => p.slug === slug) || null
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const post = await getBlogPost(slug)
 

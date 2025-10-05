@@ -4,12 +4,14 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { NavigationDropdown, MobileNavigationDropdown } from "@/components/ui/navigation-dropdown"
 import { HeartHandshake, Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,14 +21,71 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const aboutUsItems = [
+    {
+      href: "/about/what-we-do",
+      label: "What We Do",
+      description: "Our comprehensive programs and initiatives"
+    },
+    {
+      href: "/about/founder",
+      label: "About the Founder",
+      description: "Meet the visionary behind our mission"
+    },
+    {
+      href: "/about/team",
+      label: "Our Team",
+      description: "Dedicated professionals driving our impact"
+    }
+  ]
+
+  const scholarsItems = [
+    {
+      href: "/scholars?tab=graduate",
+      label: "Graduate Scholars",
+      description: "Masters and PhD students in our program"
+    },
+    {
+      href: "/scholars?tab=undergraduate",
+      label: "Undergraduate Scholars",
+      description: "Bachelor's degree students we support"
+    },
+    {
+      href: "/scholars?tab=alumni",
+      label: "Alumni Network",
+      description: "Our successful graduates making impact"
+    }
+  ]
+
+  const getInvolvedItems = [
+    {
+      href: "/get-involved/apply",
+      label: "Apply",
+      description: "Join our scholarship and mentorship programs"
+    },
+    {
+      href: "/get-involved/become-member",
+      label: "Become a Member",
+      description: "Volunteer as a mentor or support our mission"
+    }
+  ]
+
   const navLinks = [
-    { href: "#hero", label: "Home" },
-    { href: "#mission", label: "About Us" },
+    { href: "/", label: "Home" },
     { href: "#achievements", label: "Impact" },
-    { href: "#blogs", label: "Blog" },
+    { href: "/blogs", label: "Blog" },
     { href: "/gallery", label: "Gallery" },
     { href: "#testimonials", label: "Testimonials" },
   ]
+
+  const handleMobileDropdownToggle = (dropdown: string) => {
+    setOpenMobileDropdown(openMobileDropdown === dropdown ? null : dropdown)
+  }
+
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false)
+    setOpenMobileDropdown(null)
+  }
 
   return (
     <header
@@ -59,6 +118,24 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
+          
+          {/* About Us Dropdown */}
+          <NavigationDropdown 
+            trigger="About Us" 
+            items={aboutUsItems}
+          />
+          
+          {/* Scholars Dropdown */}
+          <NavigationDropdown 
+            trigger="Scholars" 
+            items={scholarsItems}
+          />
+          
+          {/* Get Involved Dropdown */}
+          <NavigationDropdown 
+            trigger="Get Involved" 
+            items={getInvolvedItems}
+          />
         </nav>
 
         <div className="hidden md:block">
@@ -79,23 +156,53 @@ export default function Header() {
 
       {isMenuOpen && (
         <div className="md:hidden bg-white/98 backdrop-blur-lg border-t border-slate-200/50 shadow-xl">
-          <nav className="flex flex-col items-center gap-6 py-8">
+          <nav className="flex flex-col">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                className="text-lg font-medium text-slate-800 hover:text-[#002366] transition-colors duration-300 py-2"
+                onClick={closeMobileMenu}
+                className="block px-6 py-4 text-lg font-medium text-slate-800 hover:text-[#002366] transition-colors duration-300 border-b border-slate-200/50"
               >
                 {link.label}
               </Link>
             ))}
-            <Button asChild size="lg" className="w-4/5 bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90 hover:scale-105 transition-all duration-300 shadow-lg font-semibold mt-2">
-              <Link href="#donate" onClick={() => setIsMenuOpen(false)}>
-                <HeartHandshake className="mr-2 h-5 w-5" />
-                Donate Now
-              </Link>
-            </Button>
+            
+            {/* Mobile About Us Dropdown */}
+            <MobileNavigationDropdown
+              trigger="About Us"
+              items={aboutUsItems}
+              isOpen={openMobileDropdown === "about"}
+              onToggle={() => handleMobileDropdownToggle("about")}
+              onItemClick={closeMobileMenu}
+            />
+            
+            {/* Mobile Scholars Dropdown */}
+            <MobileNavigationDropdown
+              trigger="Scholars"
+              items={scholarsItems}
+              isOpen={openMobileDropdown === "scholars"}
+              onToggle={() => handleMobileDropdownToggle("scholars")}
+              onItemClick={closeMobileMenu}
+            />
+            
+            {/* Mobile Get Involved Dropdown */}
+            <MobileNavigationDropdown
+              trigger="Get Involved"
+              items={getInvolvedItems}
+              isOpen={openMobileDropdown === "involved"}
+              onToggle={() => handleMobileDropdownToggle("involved")}
+              onItemClick={closeMobileMenu}
+            />
+            
+            <div className="p-6">
+              <Button asChild size="lg" className="w-full bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90 hover:scale-105 transition-all duration-300 shadow-lg font-semibold">
+                <Link href="/donate" onClick={closeMobileMenu}>
+                  <HeartHandshake className="mr-2 h-5 w-5" />
+                  Donate Now
+                </Link>
+              </Button>
+            </div>
           </nav>
         </div>
       )}

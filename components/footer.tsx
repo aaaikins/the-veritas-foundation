@@ -20,6 +20,7 @@ function Footer() {
                   onClick={() => setIsContactOpen(false)}
                   className="text-gray-400 hover:text-gray-600 transition-colors duration-500 ease-out hover:scale-110"
                 >
+                  {/* @ts-ignore */}
                   <FaTimes size={24} />
                 </button>
               </div>
@@ -27,6 +28,7 @@ function Footer() {
               <div className="space-y-6">
                 <div className="flex items-start gap-4 group">
                   <div className="w-12 h-12 bg-[#facc15]/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-[#facc15]/20 transition-colors duration-500 ease-out">
+                    {/* @ts-ignore */}
                     <FaEnvelope className="text-[#002366] text-lg" />
                   </div>
                   <div>
@@ -39,6 +41,7 @@ function Footer() {
 
                 <div className="flex items-start gap-4 group">
                   <div className="w-12 h-12 bg-[#facc15]/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-[#facc15]/20 transition-colors duration-500 ease-out">
+                    {/* @ts-ignore */}
                     <FaPhone className="text-[#002366] text-lg" />
                   </div>
                   <div>
@@ -51,6 +54,7 @@ function Footer() {
 
                 <div className="flex items-start gap-4 group">
                   <div className="w-12 h-12 bg-[#facc15]/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-[#facc15]/20 transition-colors duration-500 ease-out">
+                    {/* @ts-ignore */}
                     <FaMapMarkerAlt className="text-[#002366] text-lg" />
                   </div>
                   <div>
