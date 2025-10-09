@@ -17,12 +17,35 @@ interface NavigationDropdownProps {
 
 export function NavigationDropdown({ trigger, items, className }: NavigationDropdownProps) {
   const [isOpen, setIsOpen] = React.useState(false)
+  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null)
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = null
+    }
+    setIsOpen(true)
+  }
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsOpen(false)
+    }, 150) // Small delay to allow moving to dropdown
+  }
+
+  React.useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
 
   return (
     <div 
       className={cn("relative group", className)}
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Trigger Button */}
       <button
@@ -40,7 +63,11 @@ export function NavigationDropdown({ trigger, items, className }: NavigationDrop
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-lg shadow-xl border border-slate-200/50 py-2 z-50 animate-in fade-in-0 zoom-in-95 duration-200">
+        <div 
+          className="absolute top-full left-0 mt-1 w-72 bg-white rounded-lg shadow-xl border border-slate-200/50 py-2 z-50 animate-in fade-in-0 zoom-in-95 duration-200"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           {items.map((item, index) => (
             <Link
               key={index}

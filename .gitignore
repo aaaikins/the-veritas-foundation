@@ -219,3 +219,19 @@ DOCUMENTATION_UPDATES.md
 *" 2."*
 *copy*
 *duplicate*
+
+# Large media files (GitHub has 100MB limit)
+*.mov
+*.MOV
+*.mp4
+*.MP4
+*.avi
+*.AVI
+*.mkv
+*.MKV
+*.wmv
+*.WMV
+*.flv
+*.FLV
+# Allow small video files (under 50MB) with explicit override
+# Use: git add -f filename.mp4

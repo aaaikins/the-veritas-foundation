@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Quote } from "lucide-react"
+import { Quote, Play, Video } from "lucide-react"
 import { useState, useEffect } from "react"
 
 const testimonials = [
@@ -11,7 +11,7 @@ const testimonials = [
     role: "Scholarship Recipient",
     university: "Stanford University",
     quote: "The Veritas Foundation not only provided me with financial support but also connected me with incredible mentors who guided me through my academic journey.",
-    image: "/placeholder-user.jpg",
+    image: "/testimonials/maria-gonzalez.jpg",
     year: "2024"
   },
   {
@@ -19,7 +19,7 @@ const testimonials = [
     role: "Community Partner",
     organization: "Oakwood Community Center",
     quote: "Working with the Veritas Foundation has been transformative for our community. Their commitment to educational equity has created lasting positive change.",
-    image: "/placeholder-user.jpg",
+    image: "/testimonials/james-wilson.jpg",
     year: "2023"
   },
   {
@@ -27,7 +27,7 @@ const testimonials = [
     role: "Mentor & Supporter",
     organization: "Harvard University",
     quote: "I've had the privilege of mentoring several Veritas scholars, and their dedication and potential are truly inspiring. This foundation is doing essential work.",
-    image: "/placeholder-user.jpg",
+    image: "/testimonials/sarah-chen.jpg",
     year: "2024"
   },
   {
@@ -35,7 +35,7 @@ const testimonials = [
     role: "Alumni Beneficiary",
     university: "Yale University",
     quote: "Thanks to the Veritas Foundation's support, I was able to focus on my studies rather than financial worries. Today, I'm giving back through mentorship.",
-    image: "/placeholder-user.jpg",
+    image: "/testimonials/marcus-johnson.jpg",
     year: "2022"
   },
   {
@@ -43,7 +43,7 @@ const testimonials = [
     role: "Parent & Volunteer",
     organization: "Veritas Foundation",
     quote: "As a parent whose child benefited from the foundation's programs, I've seen firsthand how they transform lives with their holistic approach.",
-    image: "/placeholder-user.jpg",
+    image: "/testimonials/linda-rodriguez.jpg",
     year: "2024"
   },
   {
@@ -51,7 +51,38 @@ const testimonials = [
     role: "Corporate Partner",
     organization: "TechForward Inc.",
     quote: "Our company's partnership with Veritas Foundation has been incredibly rewarding. We're proud to support pathways to opportunity.",
-    image: "/placeholder-user.jpg",
+    image: "/testimonials/michael-thompson.jpg",
+    year: "2023"
+  },
+  {
+    name: "Kwame Asante",
+    role: "Current Scholar",
+    university: "MIT",
+    quote: "The application journey with Veritas Foundation was incredibly supportive. From day one, I felt part of a community that truly cares about our success. The mentorship and guidance have been invaluable in navigating my studies and building lasting relationships.",
+    image: "/testimonials/kwame-asante.jpg",
+    year: "2024"
+  }
+]
+
+const videoTestimonials = [
+  {
+    name: "Abigail Osei",
+    role: "Current Scholar",
+    university: "Columbia University",
+    quote: "My journey with Veritas Foundation has been transformative. From Ghana to the Ivy League, this foundation has been my anchor.",
+    videoUrl: "/videos/testimonials/abigail-testimonial.mp4",
+    thumbnail: "/testimonials/abigail-osei.jpg",
+    duration: "2:15",
+    year: "2024"
+  },
+  {
+    name: "Kelvin Upenn",
+    role: "Alumni Scholar",
+    university: "University of Pennsylvania",
+    quote: "Veritas Foundation didn't just fund my education; they invested in my dreams and helped me become the leader I am today.",
+    videoUrl: "/videos/testimonials/kelvin-testimonial.mp4",
+    thumbnail: "/testimonials/kelvin-upenn.jpg",
+    duration: "2:08",
     year: "2023"
   }
 ]
@@ -186,6 +217,82 @@ export default function Testimonials() {
             >
               Share Your Story
             </a>
+          </div>
+        </div>
+
+        {/* Video Testimonials Section */}
+        <div className="mt-24">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-3 bg-[#facc15]/10 text-[#002366] px-5 py-3 rounded-full text-sm font-semibold border border-[#facc15]/20">
+              <Video className="h-4 w-4" />
+              <span>Video Stories</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#002366] leading-tight mt-6">
+              Scholars in Their
+              <br />
+              <span className="text-[#facc15]">Own Words</span>
+            </h2>
+            <p className="mx-auto max-w-3xl text-slate-600 md:text-lg/relaxed leading-relaxed font-light mt-6">
+              Watch inspiring video testimonials from our scholars as they reflect on their journey
+              with Veritas Foundation and the impact it has made on their lives.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {videoTestimonials.map((video, index) => (
+              <Card key={index} className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl bg-white rounded-2xl overflow-hidden">
+                <div className="relative">
+                  {/* Video Thumbnail */}
+                  <div className="relative h-64 md:h-72 bg-slate-100 overflow-hidden">
+                    <img
+                      src={video.thumbnail}
+                      alt={video.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-300"></div>
+                    
+                    {/* Play Button */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="bg-white/90 hover:bg-white rounded-full p-4 group-hover:scale-110 transition-all duration-300 shadow-lg cursor-pointer">
+                        <Play className="w-8 h-8 text-[#002366] ml-1" fill="currentColor" />
+                      </div>
+                    </div>
+
+                    {/* Duration Badge */}
+                    <div className="absolute bottom-4 right-4 bg-black/70 text-white text-sm px-3 py-1 rounded-full">
+                      {video.duration}
+                    </div>
+                  </div>
+
+                  {/* Video Info */}
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <Avatar className="w-12 h-12 border-2 border-[#facc15]/20">
+                        <AvatarImage src={video.thumbnail} alt={video.name} />
+                        <AvatarFallback className="text-sm font-bold text-[#002366] bg-[#facc15]/10">
+                          {video.name.split(' ').map(n => n[0]).join('')}
+                        </AvatarFallback>
+                      </Avatar>
+                      
+                      <div className="flex-1">
+                        <h4 className="font-bold text-[#002366] text-lg mb-1">
+                          {video.name}
+                        </h4>
+                        <p className="text-slate-500 text-sm mb-2">
+                          {video.role} • {video.university}
+                        </p>
+                        <blockquote className="text-slate-700 italic text-sm leading-relaxed">
+                          "{video.quote}"
+                        </blockquote>
+                        <div className="text-slate-400 text-xs mt-2">
+                          {video.year}
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </div>
+              </Card>
+            ))}
           </div>
         </div>
       </div>

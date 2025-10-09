@@ -74,6 +74,48 @@ async function getBlogs(): Promise<BlogPost[]> {
       published_at: "2025-01-05T00:00:00Z",
       created_at: "2025-01-05T00:00:00Z",
       updated_at: "2025-01-05T00:00:00Z"
+    },
+    {
+      id: 4,
+      title: "From Rural Village to Ivy League: Ama's Transformation Story",
+      content: "Meet Ama Owusu, who went from a small farming village in Northern Ghana to studying computer science at Cornell University. Her journey exemplifies the transformative power of education and community support. Through the Veritas Foundation's comprehensive program, Ama not only received financial assistance but also gained access to mentorship, SAT preparation, and application guidance that made her dream a reality. Today, she's pioneering research in AI for social good and inspiring countless young women back home.",
+      excerpt: "Meet Ama Owusu, who went from a small farming village in Northern Ghana to studying computer science at Cornell University, exemplifying the transformative power of education.",
+      slug: "rural-village-ivy-league-ama-transformation",
+      status: "published",
+      featured_image: "/blog/ama-cornell-story.jpg",
+      tags: ["Impact Stories", "Women in STEM"],
+      author_id: 1,
+      published_at: "2024-12-20T00:00:00Z",
+      created_at: "2024-12-20T00:00:00Z",
+      updated_at: "2024-12-20T00:00:00Z"
+    },
+    {
+      id: 5,
+      title: "Building Bridges: How Our Alumni Give Back to Communities",
+      content: "Discover the remarkable initiative launched by our alumni network to create lasting change in underserved communities across Africa. From establishing computer labs in rural schools to organizing free coding bootcamps, our graduates are proving that success is best measured by the lives you touch. This feature explores three groundbreaking projects: a telemedicine platform connecting remote villages to healthcare, a mobile app teaching financial literacy, and a scholarship fund created entirely by alumni contributions.",
+      excerpt: "Discover how our alumni network creates lasting change through technology, education, and community-driven initiatives across Africa.",
+      slug: "building-bridges-alumni-give-back-communities",
+      status: "published",
+      featured_image: "/blog/alumni-community-impact.jpg",
+      tags: ["Alumni Impact", "Community Development"],
+      author_id: 1,
+      published_at: "2024-12-15T00:00:00Z",
+      created_at: "2024-12-15T00:00:00Z",
+      updated_at: "2024-12-15T00:00:00Z"
+    },
+    {
+      id: 6,
+      title: "The Ripple Effect: How One Scholarship Changes Entire Families",
+      content: "When Kwame received his scholarship to study engineering at MIT, the impact went far beyond his individual success. Follow the incredible story of how one student's achievement created a cascade of positive change that transformed his entire extended family and community. From his younger sister now attending university to his village gaining access to clean water through his engineering project, this story illustrates the multiplier effect of investing in young African minds. Learn how the Veritas Foundation's holistic approach creates sustainable change that spans generations.",
+      excerpt: "Follow Kwame's incredible story of how one MIT scholarship created a cascade of positive change transforming his family and entire community.",
+      slug: "ripple-effect-scholarship-changes-families",
+      status: "published",
+      featured_image: "/blog/kwame-family-impact.jpg",
+      tags: ["Impact Stories", "Community Change"],
+      author_id: 1,
+      published_at: "2024-12-10T00:00:00Z",
+      created_at: "2024-12-10T00:00:00Z",
+      updated_at: "2024-12-10T00:00:00Z"
     }
   ]
 }

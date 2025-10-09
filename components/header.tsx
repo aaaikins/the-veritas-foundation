@@ -41,19 +41,14 @@ export default function Header() {
 
   const scholarsItems = [
     {
-      href: "/scholars?tab=graduate",
+      href: "/scholars/graduate",
       label: "Graduate Scholars",
       description: "Masters and PhD students in our program"
     },
     {
-      href: "/scholars?tab=undergraduate",
+      href: "/scholars/undergraduate",
       label: "Undergraduate Scholars",
       description: "Bachelor's degree students we support"
-    },
-    {
-      href: "/scholars?tab=alumni",
-      label: "Alumni Network",
-      description: "Our successful graduates making impact"
     }
   ]
 
@@ -71,11 +66,10 @@ export default function Header() {
   ]
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "#achievements", label: "Impact" },
+    { href: "/impact", label: "Impact" },
     { href: "/blogs", label: "Blog" },
     { href: "/gallery", label: "Gallery" },
-    { href: "#testimonials", label: "Testimonials" },
+    { href: "/testimonials", label: "Testimonials" },
   ]
 
   const handleMobileDropdownToggle = (dropdown: string) => {
@@ -109,15 +103,13 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-base font-medium text-slate-700 hover:text-[#002366] transition-colors duration-300 relative after:content-[''] after:absolute after:left-0 after:bottom-[-6px] after:w-0 after:h-[2px] after:bg-[#facc15] after:transition-all after:duration-300 hover:after:w-full py-2"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {/* Home Link */}
+          <Link
+            href="/"
+            className="text-base font-medium text-slate-700 hover:text-[#002366] transition-colors duration-300 relative after:content-[''] after:absolute after:left-0 after:bottom-[-6px] after:w-0 after:h-[2px] after:bg-[#facc15] after:transition-all after:duration-300 hover:after:w-full py-2"
+          >
+            Home
+          </Link>
           
           {/* About Us Dropdown */}
           <NavigationDropdown 
@@ -130,6 +122,17 @@ export default function Header() {
             trigger="Scholars" 
             items={scholarsItems}
           />
+          
+          {/* Other Navigation Links */}
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-base font-medium text-slate-700 hover:text-[#002366] transition-colors duration-300 relative after:content-[''] after:absolute after:left-0 after:bottom-[-6px] after:w-0 after:h-[2px] after:bg-[#facc15] after:transition-all after:duration-300 hover:after:w-full py-2"
+            >
+              {link.label}
+            </Link>
+          ))}
           
           {/* Get Involved Dropdown */}
           <NavigationDropdown 
@@ -157,16 +160,14 @@ export default function Header() {
       {isMenuOpen && (
         <div className="md:hidden bg-white/98 backdrop-blur-lg border-t border-slate-200/50 shadow-xl">
           <nav className="flex flex-col">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={closeMobileMenu}
-                className="block px-6 py-4 text-lg font-medium text-slate-800 hover:text-[#002366] transition-colors duration-300 border-b border-slate-200/50"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {/* Home Link */}
+            <Link
+              href="/"
+              onClick={closeMobileMenu}
+              className="block px-6 py-4 text-lg font-medium text-slate-800 hover:text-[#002366] transition-colors duration-300 border-b border-slate-200/50"
+            >
+              Home
+            </Link>
             
             {/* Mobile About Us Dropdown */}
             <MobileNavigationDropdown
@@ -185,6 +186,18 @@ export default function Header() {
               onToggle={() => handleMobileDropdownToggle("scholars")}
               onItemClick={closeMobileMenu}
             />
+            
+            {/* Other Navigation Links */}
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={closeMobileMenu}
+                className="block px-6 py-4 text-lg font-medium text-slate-800 hover:text-[#002366] transition-colors duration-300 border-b border-slate-200/50"
+              >
+                {link.label}
+              </Link>
+            ))}
             
             {/* Mobile Get Involved Dropdown */}
             <MobileNavigationDropdown

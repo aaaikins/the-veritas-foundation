@@ -1,90 +1,49 @@
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Mail, Linkedin, Award, Users, Heart, BookOpen } from "lucide-react"
+import { ArrowRight, Users } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
 export default function OurTeamPage() {
   const teamMembers = [
     {
-      name: "Dr. Sarah Johnson",
-      role: "Director of Academic Programs",
+      name: "Emmanuel Aikins Acheampong",
+      role: "Founder & Executive Director",
       image: "/placeholder-user.jpg",
-      bio: "Dr. Johnson brings over 15 years of experience in educational leadership and student development. She specializes in curriculum design and academic mentorship programs.",
-      expertise: ["Academic Mentorship", "Curriculum Development", "Student Assessment"],
-      education: "Ph.D. in Educational Leadership, Harvard University"
+      bio: "A first-generation scholar from the Northern Region of Ghana, currently pursuing his studies in the United States. Emmanuel founded Veritas after experiencing firsthand the challenges brilliant students face without proper guidance. Has mentored 30+ scholars into top U.S. universities including Caltech, UPenn, and Grambling State, with over $5M in scholarships secured."
     },
     {
-      name: "Michael Chen",
-      role: "Program Coordinator", 
-      image: "/placeholder-user.jpg",
-      bio: "Michael oversees day-to-day operations and student engagement initiatives. His background in nonprofit management ensures smooth program delivery.",
-      expertise: ["Program Management", "Student Engagement", "Community Outreach"],
-      education: "M.A. in Nonprofit Management, Stanford University"
-    },
-    {
-      name: "Dr. Aisha Patel",
-      role: "Research & Development Lead",
+      name: "Sarah Mensah",
+      role: "Program Coordinator",
       image: "/placeholder-user.jpg", 
-      bio: "Dr. Patel leads our research initiatives and program evaluation efforts. She ensures our programs are evidence-based and continuously improved.",
-      expertise: ["Educational Research", "Program Evaluation", "Data Analysis"],
-      education: "Ph.D. in Educational Psychology, UC Berkeley"
+      bio: "A development studies graduate from the University of Ghana, now working in nonprofit management in Accra. Sarah coordinates outreach programs across Northern Ghana's high schools. Has directly impacted 200+ students through guidance sessions and connected 15 scholars to the foundation's programs."
     },
     {
-      name: "James Rodriguez",
-      role: "Student Support Specialist",
+      name: "Kwame Asante",
+      role: "SAT Preparation Lead",
       image: "/placeholder-user.jpg",
-      bio: "James provides direct support to students, helping them navigate academic challenges and personal development opportunities.",
-      expertise: ["Student Counseling", "Crisis Support", "Life Skills Development"],
-      education: "M.S. in School Counseling, Teachers College"
+      bio: "A computer science student at MIT who scored 1580 on the SAT. Originally from Kumasi, Ghana, Kwame leads our online SAT preparation program. Has tutored over 100 students, with 80% achieving scores above 1400 and 25+ gaining admission to top-tier universities."
     },
     {
-      name: "Lisa Thompson",
-      role: "Communications Manager",
+      name: "Akosua Boateng",
+      role: "Outreach & Community Lead",
       image: "/placeholder-user.jpg",
-      bio: "Lisa manages our communications strategy and community engagement efforts, ensuring our impact stories reach the right audiences.",
-      expertise: ["Strategic Communications", "Social Media", "Community Relations"],
-      education: "B.A. in Communications, Northwestern University"
+      bio: "A social work professional based in Tamale, Ghana, with deep connections to Northern Ghana's educational landscape. Akosua coordinates our high school partnerships and community awareness programs. Has established relationships with 12+ schools and reached over 1,000 students with scholarship information."
     },
     {
-      name: "David Kim",
-      role: "Finance & Operations",
+      name: "Michael Oppong",
+      role: "Scholar Support Coordinator", 
       image: "/placeholder-user.jpg",
-      bio: "David ensures financial transparency and operational efficiency, managing budgets and resource allocation for maximum impact.",
-      expertise: ["Financial Management", "Operations", "Resource Planning"],
-      education: "MBA in Finance, Wharton School"
+      bio: "A Veritas Foundation alumnus studying engineering at the University of Pennsylvania. Michael provides ongoing support to current scholars navigating university life in the U.S. Has mentored 25+ scholars through their first-year transitions and maintains a 95% academic success rate among his mentees."
+    },
+    {
+      name: "Fatimah Abdul-Rahman",
+      role: "Women's Empowerment Lead",
+      image: "/placeholder-user.jpg",
+      bio: "A graduate student in public policy at Harvard Kennedy School, originally from Bolgatanga, Ghana. Fatimah spearheads our women's empowerment initiatives and female scholar support programs. Has specifically mentored 20+ young women into STEM fields and leadership positions."
     }
-  ]
-
-  const advisors = [
-    {
-      name: "Prof. Elizabeth Williams",
-      role: "Educational Advisor",
-      organization: "Former Dean, School of Education",
-      expertise: "Higher Education Policy"
-    },
-    {
-      name: "Dr. Robert Chang",
-      role: "Research Advisor", 
-      organization: "Educational Research Institute",
-      expertise: "Student Success Metrics"
-    },
-    {
-      name: "Maria Gonzalez",
-      role: "Community Advisor",
-      organization: "Community Development Leader",
-      expertise: "Community Engagement"
-    }
-  ]
-
-  const stats = [
-    { number: "15+", label: "Team Members" },
-    { number: "50+", label: "Combined Years of Experience" },
-    { number: "1000+", label: "Students Impacted" },
-    { number: "25+", label: "Partner Organizations" }
   ]
 
   return (
@@ -92,105 +51,92 @@ export default function OurTeamPage() {
       <Header />
       
       <main className="flex-1 pt-20">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-[#002366] via-[#003d82] to-[#0056b3] text-white py-20">
-          <div className="container mx-auto px-6 md:px-8 text-center">
-            <Badge variant="secondary" className="mb-6 text-sm px-4 py-2 bg-[#facc15] text-[#002366] font-semibold">
-              Meet Our Team
-            </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Our Team
+        {/* Large Banner Intro */}
+        <section className="relative py-24 md:py-32 overflow-hidden">
+          {/* Background Image Option */}
+          <div className="absolute inset-0">
+            <Image
+              src="/gallery/team-group-photo.jpg" // Replace with actual team photo
+              alt="Veritas Foundation Team"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#002366]/80 via-[#002366]/70 to-[#0056b3]/80"></div>
+          </div>
+
+          {/* Fallback Banner with Text (if no image) */}
+          {/* Uncomment this section if using text banner instead of image
+          <div className="absolute inset-0 bg-gradient-to-br from-[#002366] via-[#003d82] to-[#0056b3]"></div>
+          */}
+
+          <div className="container mx-auto px-6 md:px-8 text-center relative z-10">
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-6 py-3 rounded-full text-sm font-semibold mb-8">
+              <Users size={16} />
+              <span>OUR TEAM</span>
+            </div>
+            
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
+              Meet the Passionate People
             </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed text-blue-100">
-              Dedicated professionals united by a shared passion for empowering students and transforming lives through education.
+            <h2 className="text-2xl md:text-4xl font-semibold text-[#facc15] mb-8">
+              Driving Veritas Foundation Forward
+            </h2>
+            
+            <p className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed">
+              From Ghana to the United States, our diverse team combines lived experience, educational expertise, and unwavering dedication to transform lives through education.
             </p>
-
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mt-12">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-[#facc15] mb-2">{stat.number}</div>
-                  <div className="text-blue-100">{stat.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
-        {/* Team Mission */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-6 md:px-8">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-[#002366]">Our Collective Mission</h2>
-              <p className="text-xl leading-relaxed text-slate-700 mb-8">
-                We are a diverse team of educators, researchers, and community advocates who share a common vision: 
-                to unlock the potential in every student we serve. Our combined expertise spans education, psychology, 
-                nonprofit management, and community development.
-              </p>
-              <p className="text-lg leading-relaxed text-slate-600">
-                Together, we create an environment where students don't just succeed academically—they develop into 
-                confident leaders, critical thinkers, and compassionate individuals ready to make a positive impact in the world.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Team Members */}
-        <section className="py-16 bg-slate-50">
+        {/* Individual Team Member Cards */}
+        <section className="py-16 md:py-24 bg-white">
           <div className="container mx-auto px-6 md:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#002366]">Core Team</h2>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+                Our Team Members
+              </h2>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                Meet the dedicated professionals who work tirelessly to support our students and advance our mission
+                Each member brings unique experiences and expertise to our mission of empowering students
               </p>
             </div>
 
+            {/* Grid of Team Member Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {teamMembers.map((member, index) => (
-                <Card key={index} className="h-full hover:shadow-xl transition-all duration-300 border-0 bg-white group overflow-hidden">
-                  <div className="relative">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      width={400}
-                      height={300}
-                      className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div className="absolute bottom-4 left-4 text-white">
-                      <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                      <p className="text-sm opacity-90">{member.role}</p>
-                    </div>
-                  </div>
-                  
-                  <CardContent className="p-6">
-                    <p className="text-slate-600 mb-4 leading-relaxed text-sm">{member.bio}</p>
-                    
-                    <div className="mb-4">
-                      <h4 className="font-semibold text-[#002366] mb-2 text-sm">Education</h4>
-                      <p className="text-slate-600 text-sm">{member.education}</p>
-                    </div>
-
-                    <div className="mb-4">
-                      <h4 className="font-semibold text-[#002366] mb-2 text-sm">Expertise</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {member.expertise.map((skill, skillIndex) => (
-                          <Badge key={skillIndex} variant="secondary" className="text-xs bg-slate-100 text-slate-700">
-                            {skill}
-                          </Badge>
-                        ))}
+                <Card key={index} className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 ease-out hover:-translate-y-2 bg-white">
+                  <CardContent className="p-0">
+                    {/* Photo */}
+                    <div className="relative h-80 overflow-hidden">
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      
+                      {/* Name and Role Overlay */}
+                      <div className="absolute bottom-6 left-6 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <h3 className="text-xl font-bold mb-1">{member.name}</h3>
+                        <p className="text-sm text-white/90 font-medium">{member.role}</p>
                       </div>
                     </div>
 
-                    <div className="flex gap-2 pt-2">
-                      <Button size="sm" variant="outline" className="flex-1">
-                        <Mail className="w-4 h-4 mr-2" />
-                        Contact
-                      </Button>
-                      <Button size="sm" variant="outline" className="flex-1">
-                        <Linkedin className="w-4 h-4 mr-2" />
-                        LinkedIn
-                      </Button>
+                    {/* Bio Content */}
+                    <div className="p-6">
+                      {/* Name and Role (visible when not hovering) */}
+                      <div className="mb-4 md:hidden lg:block group-hover:opacity-0 transition-opacity duration-300">
+                        <h3 className="text-xl font-bold text-[#002366] mb-1">{member.name}</h3>
+                        <p className="text-sm font-semibold text-[#facc15] mb-3">{member.role}</p>
+                      </div>
+                      
+                      {/* Short Bio (3-4 lines) */}
+                      <p className="text-slate-600 leading-relaxed text-sm">
+                        {member.bio}
+                      </p>
                     </div>
                   </CardContent>
                 </Card>
@@ -199,99 +145,46 @@ export default function OurTeamPage() {
           </div>
         </section>
 
-        {/* Advisory Board */}
-        <section className="py-16 bg-white">
+        {/* Closing Section */}
+        <section className="py-16 md:py-24 bg-gradient-to-br from-slate-50 to-white">
           <div className="container mx-auto px-6 md:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#002366]">Advisory Board</h2>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                Distinguished leaders and experts who provide strategic guidance and expertise to our organization
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-8">
+                United by Purpose
+              </h2>
+              
+              <p className="text-xl md:text-2xl text-slate-700 leading-relaxed mb-12">
+                Together, our team combines lived experience, passion for education, and global expertise to build pathways for brilliant minds. We are scholars, educators, mentors, and advocates united by the belief that every student deserves the chance to transform their dreams into reality.
               </p>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              {advisors.map((advisor, index) => (
-                <Card key={index} className="text-center p-8 hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-slate-50">
-                  <CardContent className="p-0">
-                    <div className="w-16 h-16 bg-gradient-to-br from-[#facc15] to-[#f59e0b] rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Award className="w-8 h-8 text-[#002366]" />
-                    </div>
-                    <h3 className="text-xl font-bold text-[#002366] mb-2">{advisor.name}</h3>
-                    <p className="text-sm font-semibold text-slate-700 mb-2">{advisor.role}</p>
-                    <p className="text-sm text-slate-600 mb-3">{advisor.organization}</p>
-                    <Badge variant="secondary" className="text-xs bg-slate-100 text-slate-700">
-                      {advisor.expertise}
-                    </Badge>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Team Values */}
-        <section className="py-16 bg-slate-50">
-          <div className="container mx-auto px-6 md:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#002366]">What Drives Us</h2>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                The shared values and principles that unite our team in pursuit of educational excellence
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-[#002366] to-[#0056b3] rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Heart className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-4 text-[#002366]">Passion</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  We are deeply passionate about education and genuinely care about each student's success and well-being.
+              <div className="bg-white rounded-2xl p-8 md:p-12 shadow-xl border-l-4 border-[#facc15] mb-12">
+                <p className="text-lg md:text-xl text-slate-600 leading-relaxed mb-6">
+                  From coordinating SAT preparation in Accra to mentoring students at MIT, from establishing partnerships with high schools in Northern Ghana to supporting scholars navigating Ivy League universities—our diverse experiences create a comprehensive support network that addresses every aspect of a student's educational journey.
+                </p>
+                <p className="text-lg font-semibold text-[#002366]">
+                  We don't just provide opportunities; we create a family that supports, guides, and celebrates every step of the journey.
                 </p>
               </div>
 
+              {/* Call to Action */}
               <div className="text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-[#facc15] to-[#f59e0b] rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Users className="w-10 h-10 text-[#002366]" />
-                </div>
-                <h3 className="text-xl font-bold mb-4 text-[#002366]">Collaboration</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  We work together as a cohesive team, leveraging our diverse skills to create the best possible outcomes for students.
+                <h3 className="text-2xl md:text-3xl font-bold text-[#002366] mb-6">
+                  Join Our Mission
+                </h3>
+                <p className="text-lg text-slate-600 mb-8 max-w-3xl mx-auto">
+                  Whether you're an educator, mentor, or someone passionate about empowering students, there's a place for you in our growing team.
                 </p>
-              </div>
-
-              <div className="text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-[#002366] to-[#0056b3] rounded-full flex items-center justify-center mx-auto mb-6">
-                  <BookOpen className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-4 text-[#002366]">Growth</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  We are committed to continuous learning and improvement, both for ourselves and the students we serve.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Join Our Team */}
-        <section className="py-16 bg-gradient-to-br from-[#002366] to-[#0056b3] text-white">
-          <div className="container mx-auto px-6 md:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Join Our Team</h2>
-            <p className="text-xl mb-8 max-w-3xl mx-auto leading-relaxed text-blue-100">
-              Are you passionate about education and student empowerment? We're always looking for dedicated 
-              professionals who share our vision and want to make a meaningful impact.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-[#facc15] text-[#002366] hover:bg-[#facc15]/90 font-semibold">
-                <Link href="/join-us">
-                  View Open Positions
+                
+                <Link href="/get-involved/become-member">
+                  <Button 
+                    size="lg"
+                    className="bg-[#002366] hover:bg-[#002366]/90 text-[#facc15] font-bold px-8 py-4 text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-500 ease-out group"
+                  >
+                    Get Involved
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  </Button>
                 </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-[#002366] font-semibold">
-                <Link href="mailto:careers@veritasfoundation.org">
-                  Send Your Resume
-                </Link>
-              </Button>
+              </div>
             </div>
           </div>
         </section>

@@ -20,15 +20,41 @@ interface GalleryItem {
 }
 
 const galleryImages = [
-  { src: "/hero-image.jpg", alt: "Veritas Foundation group photo", className: "col-span-2 row-span-2" },
-  { src: "/gallery/career-preview.jpg", alt: "Scholars at a Career Preview event", className: "row-span-2" },
-  { src: "/gallery/caltech-scholar.png", alt: "Veritas Foundation scholar at Caltech", className: "" },
-  {
-    src: "/gallery/grambling-scholar.png",
-    alt: "Veritas Foundation scholar at Grambling State University",
-    className: "",
-  },
-  { src: "/gallery/yale-scholar.jpeg", alt: "Veritas Foundation scholar at Yale University", className: "" },
+  // Outreach Category
+  { src: "/gallery/outreach/community-visit-1.jpg", alt: "Community outreach visit to local schools", category: "outreach", className: "col-span-2 row-span-2" },
+  { src: "/gallery/outreach/scholarship-info-session.jpg", alt: "Scholarship information session", category: "outreach", className: "row-span-2" },
+  { src: "/gallery/outreach/education-workshop.jpg", alt: "Educational workshop for prospective students", category: "outreach", className: "" },
+  { src: "/gallery/outreach/rural-school-visit.jpg", alt: "Visit to rural school communities", category: "outreach", className: "" },
+  
+  // Scholars Category
+  { src: "/gallery/caltech-scholar.png", alt: "Veritas Foundation scholar at Caltech", category: "scholars", className: "" },
+  { src: "/gallery/grambling-scholar.png", alt: "Veritas Foundation scholar at Grambling State University", category: "scholars", className: "" },
+  { src: "/gallery/yale-scholar.jpeg", alt: "Veritas Foundation scholar at Yale University", category: "scholars", className: "" },
+  { src: "/gallery/scholars/harvard-graduation.jpg", alt: "Scholar graduating from Harvard University", category: "scholars", className: "" },
+  { src: "/gallery/scholars/mit-research-lab.jpg", alt: "Scholar conducting research at MIT", category: "scholars", className: "row-span-2" },
+  { src: "/gallery/scholars/stanford-campus.jpg", alt: "Scholar at Stanford University campus", category: "scholars", className: "" },
+  
+  // Events Category
+  { src: "/gallery/career-preview.jpg", alt: "Scholars at a Career Preview event", category: "events", className: "" },
+  { src: "/gallery/events/annual-gala-2024.jpg", alt: "Annual Veritas Foundation Gala 2024", category: "events", className: "col-span-2" },
+  { src: "/gallery/events/scholarship-ceremony.jpg", alt: "Scholarship award ceremony", category: "events", className: "" },
+  { src: "/gallery/events/donor-appreciation.jpg", alt: "Donor appreciation dinner", category: "events", className: "" },
+  
+  // Hangout/Community Category
+  { src: "/gallery/hangout/scholars-meetup.jpg", alt: "Scholars casual meetup and networking", category: "hangout", className: "" },
+  { src: "/gallery/hangout/summer-retreat.jpg", alt: "Summer retreat for scholars", category: "hangout", className: "col-span-2" },
+  { src: "/gallery/hangout/alumni-reunion.jpg", alt: "Alumni reunion gathering", category: "hangout", className: "" },
+  { src: "/gallery/hangout/study-group.jpg", alt: "Scholars study group session", category: "hangout", className: "" },
+  { src: "/gallery/hangout/cultural-night.jpg", alt: "Cultural celebration night", category: "hangout", className: "" },
+  
+  // Mentorship Category
+  { src: "/gallery/mentorship/mentor-student-meeting.jpg", alt: "Mentor and student one-on-one session", category: "mentorship", className: "" },
+  { src: "/gallery/mentorship/group-mentoring.jpg", alt: "Group mentoring session", category: "mentorship", className: "row-span-2" },
+  { src: "/gallery/mentorship/virtual-coaching.jpg", alt: "Virtual mentoring and coaching session", category: "mentorship", className: "" },
+  { src: "/gallery/mentorship/industry-visit.jpg", alt: "Mentorship industry visit", category: "mentorship", className: "" },
+  
+  // Foundation group photo (featured)
+  { src: "/hero-image.jpg", alt: "Veritas Foundation group photo", category: "events", className: "col-span-2 row-span-2" }
 ]
 
 export default function Gallery() {
