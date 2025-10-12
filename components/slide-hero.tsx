@@ -197,7 +197,7 @@ function SlideHero() {
             <div className={`transition-all duration-500 delay-300 ${
               showCTA ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             }`}>
-              <Link href="/join-us">
+              <Link href="/get-involved/become-member">
                 <Button
                   size="lg"
                   className="bg-[#002366] hover:bg-[#002366]/90 text-[#facc15] font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-500 ease-out group disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"

@@ -86,19 +86,19 @@ export default function TestimonialsPage() {
   const videoTestimonials: VideoTestimonial[] = [
     {
       id: "abigail-video",
-      name: "Abigail Mensah",
+      name: "Abigail",
       university: "University of Pennsylvania",
       thumbnail: "/testimonials/abigail-video-thumb.jpg",
-      videoUrl: "#",
-      description: "Abigail shares her journey from Ghana to UPenn and how Veritas Foundation transformed her life"
+      videoUrl: "/videos/testimonials/abigail-testimonial.mp4",
+      description: "Abigail shares her 2-minute reflection on her transformative journey with Veritas Foundation from Ghana to UPenn and the lasting impact it has made on her life and academic pursuits"
     },
     {
       id: "kelvin-video",
-      name: "Kelvin Opoku",
+      name: "KelvinUpenn",
       university: "University of Pennsylvania",
       thumbnail: "/testimonials/kelvin-video-thumb.jpg",
-      videoUrl: "#",
-      description: "Kelvin reflects on his experience with Veritas and the impact it has had on his academic journey"
+      videoUrl: "/videos/testimonials/kelvin-testimonial.mp4",
+      description: "KelvinUpenn reflects in this 2-minute testimonial on his incredible journey with Veritas Foundation and how it has shaped his academic success and personal growth in the US"
     }
   ]
 
@@ -211,7 +211,44 @@ export default function TestimonialsPage() {
                   />
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-300" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-[#facc15] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 cursor-pointer">
+                    <div className="bg-[#facc15] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 cursor-pointer"
+                         onClick={() => {
+                           const videoElement = document.createElement('video');
+                           videoElement.src = video.videoUrl;
+                           videoElement.controls = true;
+                           videoElement.autoplay = true;
+                           videoElement.style.width = '100%';
+                           videoElement.style.height = '100%';
+                           videoElement.style.objectFit = 'cover';
+                           
+                           // Create modal overlay
+                           const modalOverlay = document.createElement('div');
+                           modalOverlay.style.position = 'fixed';
+                           modalOverlay.style.top = '0';
+                           modalOverlay.style.left = '0';
+                           modalOverlay.style.width = '100%';
+                           modalOverlay.style.height = '100%';
+                           modalOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                           modalOverlay.style.display = 'flex';
+                           modalOverlay.style.alignItems = 'center';
+                           modalOverlay.style.justifyContent = 'center';
+                           modalOverlay.style.zIndex = '9999';
+                           modalOverlay.style.cursor = 'pointer';
+                           
+                           const videoContainer = document.createElement('div');
+                           videoContainer.style.maxWidth = '90%';
+                           videoContainer.style.maxHeight = '90%';
+                           videoContainer.style.aspectRatio = '16/9';
+                           
+                           videoContainer.appendChild(videoElement);
+                           modalOverlay.appendChild(videoContainer);
+                           
+                           modalOverlay.onclick = () => {
+                             document.body.removeChild(modalOverlay);
+                           };
+                           
+                           document.body.appendChild(modalOverlay);
+                         }}>
                       <Play className="w-8 h-8 text-[#002366] ml-1" />
                     </div>
                   </div>

@@ -35,13 +35,13 @@ export default function HomePage() {
 
       <main className="flex-1">
         <HeroBanner />
-        <FeaturedStories />
         <About />
+        <FeaturedStories />
         <Achievements />
         <UniversityLogos />
-        <SuccessStories />
+        {/* <SuccessStories /> */}
         <Gallery />
-        <BlogSection />
+        {/* <BlogSection /> */}
         <Testimonials />
         <DonationBanner />
         {/* <Donation /> */}

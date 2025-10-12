@@ -7,43 +7,23 @@ import { useState, useEffect } from "react"
 const achievements = [
   {
     icon: <Users className="h-8 w-8" />,
-    title: "127",
-    description: "Total Scholars Supported",
-  },
-  {
-    icon: <GraduationCap className="h-8 w-8" />,
-    title: "1,547",
-    description: "Average SAT Score",
+    title: "30+",
+    description: "Scholars Supported",
   },
   {
     icon: <DollarSign className="h-8 w-8" />,
-    title: "$12.3M",
+    title: "$2.5M",
     description: "Scholarship Funding Secured",
   },
   {
     icon: <Building className="h-8 w-8" />,
-    title: "47",
+    title: "15+",
     description: "Top Universities",
   },
   {
     icon: <Trophy className="h-8 w-8" />,
-    title: "89%",
-    description: "Graduation Rate",
-  },
-  {
-    icon: <MapPin className="h-8 w-8" />,
-    title: "23",
-    description: "Ghana Regions Reached",
-  },
-  {
-    icon: <Heart className="h-8 w-8" />,
-    title: "1,500+",
-    description: "Lives Impacted",
-  },
-  {
-    icon: <Star className="h-8 w-8" />,
-    title: "95%",
-    description: "Alumni Satisfaction",
+    title: "100%",
+    description: "Success Rate",
   },
 ]
 

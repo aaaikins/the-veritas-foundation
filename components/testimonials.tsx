@@ -58,7 +58,7 @@ const testimonials = [
     name: "Kwame Asante",
     role: "Current Scholar",
     university: "MIT",
-    quote: "The application journey with Veritas Foundation was incredibly supportive. From day one, I felt part of a community that truly cares about our success. The mentorship and guidance have been invaluable in navigating my studies and building lasting relationships.",
+    quote: "The application journey with Veritas Foundation was incredibly supportive from start to finish. From day one, I felt part of a community that truly cares about our success. The mentorship, guidance, and sense of belonging have been invaluable in navigating my studies and building lasting relationships with fellow scholars.",
     image: "/testimonials/kwame-asante.jpg",
     year: "2024"
   }
@@ -66,20 +66,20 @@ const testimonials = [
 
 const videoTestimonials = [
   {
-    name: "Abigail Osei",
+    name: "Abigail",
     role: "Current Scholar",
-    university: "Columbia University",
-    quote: "My journey with Veritas Foundation has been transformative. From Ghana to the Ivy League, this foundation has been my anchor.",
+    university: "University of Pennsylvania",
+    quote: "My journey with Veritas Foundation has been transformative. From Ghana to the Ivy League, this foundation has been my anchor through every challenge and triumph.",
     videoUrl: "/videos/testimonials/abigail-testimonial.mp4",
     thumbnail: "/testimonials/abigail-osei.jpg",
     duration: "2:15",
     year: "2024"
   },
   {
-    name: "Kelvin Upenn",
+    name: "KelvinUpenn",
     role: "Alumni Scholar",
     university: "University of Pennsylvania",
-    quote: "Veritas Foundation didn't just fund my education; they invested in my dreams and helped me become the leader I am today.",
+    quote: "Veritas Foundation didn't just fund my education; they invested in my dreams, believed in my potential, and helped me become the leader I am today.",
     videoUrl: "/videos/testimonials/kelvin-testimonial.mp4",
     thumbnail: "/testimonials/kelvin-upenn.jpg",
     duration: "2:08",
@@ -253,7 +253,46 @@ export default function Testimonials() {
                     
                     {/* Play Button */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="bg-white/90 hover:bg-white rounded-full p-4 group-hover:scale-110 transition-all duration-300 shadow-lg cursor-pointer">
+                      <div className="bg-white/90 hover:bg-white rounded-full p-4 group-hover:scale-110 transition-all duration-300 shadow-lg cursor-pointer"
+                           onClick={() => {
+                             const videoElement = document.createElement('video');
+                             videoElement.src = video.videoUrl;
+                             videoElement.controls = true;
+                             videoElement.autoplay = true;
+                             videoElement.style.width = '100%';
+                             videoElement.style.height = '100%';
+                             videoElement.style.objectFit = 'cover';
+                             
+                             // Create modal overlay
+                             const modalOverlay = document.createElement('div');
+                             modalOverlay.style.position = 'fixed';
+                             modalOverlay.style.top = '0';
+                             modalOverlay.style.left = '0';
+                             modalOverlay.style.width = '100%';
+                             modalOverlay.style.height = '100%';
+                             modalOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                             modalOverlay.style.display = 'flex';
+                             modalOverlay.style.alignItems = 'center';
+                             modalOverlay.style.justifyContent = 'center';
+                             modalOverlay.style.zIndex = '9999';
+                             modalOverlay.style.cursor = 'pointer';
+                             
+                             const videoContainer = document.createElement('div');
+                             videoContainer.style.maxWidth = '90%';
+                             videoContainer.style.maxHeight = '90%';
+                             videoContainer.style.aspectRatio = '16/9';
+                             
+                             videoContainer.appendChild(videoElement);
+                             modalOverlay.appendChild(videoContainer);
+                             
+                             modalOverlay.onclick = (e) => {
+                               if (e.target === modalOverlay) {
+                                 document.body.removeChild(modalOverlay);
+                               }
+                             };
+                             
+                             document.body.appendChild(modalOverlay);
+                           }}>
                         <Play className="w-8 h-8 text-[#002366] ml-1" fill="currentColor" />
                       </div>
                     </div>

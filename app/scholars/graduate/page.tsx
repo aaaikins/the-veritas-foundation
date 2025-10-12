@@ -281,9 +281,9 @@ export default function GraduateScholarsPage() {
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
-                Advancing Knowledge
+                Meet the Graduate
                 <br />
-                <span className="text-[#facc15]">& Innovation</span>
+                <span className="text-[#facc15]">Scholars</span>
               </h1>
 
               <p className="text-purple-100 md:text-lg/relaxed leading-relaxed font-light max-w-3xl mx-auto">

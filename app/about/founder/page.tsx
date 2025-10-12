@@ -20,7 +20,7 @@ export default function AboutFounderPage() {
                 <span>MEET THE FOUNDER</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-8">
-                A Personal Message from Emmanuel
+                A Personal Message from Johnson Amoah
               </h1>
             </div>
 
@@ -30,7 +30,7 @@ export default function AboutFounderPage() {
                 <div className="w-80 h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                   <Image
                     src="/placeholder-user.jpg" // Replace with actual founder photo
-                    alt="Emmanuel - Founder of The Veritas Foundation"
+                    alt="Johnson - Founder of The Veritas Foundation"
                     fill
                     className="object-cover"
                     priority
@@ -57,7 +57,7 @@ export default function AboutFounderPage() {
                 </h2>
                 <div className="bg-white rounded-2xl p-8 md:p-12 shadow-xl border-l-4 border-[#facc15]">
                   <p className="text-lg md:text-xl text-slate-700 leading-relaxed mb-6">
-                    Hello, my name is Emmanuel Aikins Acheampong, and I'm honored to share my story with you. I come from a small village in the Northern Region of Ghana, where dreams often seemed bigger than the opportunities available to pursue them. Today, I'm pursuing my studies in the United States, but my heart remains deeply connected to the brilliant minds back home who face the same challenges I once did.
+                    Hello, my name is Johnson Amoah, and I'm honored to share my story with you. I come from a small village in the Northern Region of Ghana, where dreams often seemed bigger than the opportunities available to pursue them. Today, I'm pursuing my studies in the United States, but my heart remains deeply connected to the brilliant minds back home who face the same challenges I once did.
                   </p>
                   <p className="text-lg md:text-xl text-slate-700 leading-relaxed">
                     Every day, I'm reminded of how far I've come and how many others could achieve the same—if only they had the right guidance, support, and someone who believed in their potential. That's why I founded The Veritas Foundation.
@@ -151,7 +151,7 @@ export default function AboutFounderPage() {
                         variant="outline"
                         className="border-2 border-white text-white hover:bg-white hover:text-[#002366] font-semibold px-8 py-4 text-lg transition-all duration-300"
                       >
-                        Apply for Scholarship
+                        Join Us Now
                       </Button>
                     </Link>
                   </div>

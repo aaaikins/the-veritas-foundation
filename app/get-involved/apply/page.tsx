@@ -84,7 +84,7 @@ export default function ApplyPage() {
                       <strong className="text-[#002366]">SAT Score:</strong> 1450 and above.
                     </div>
                     <div>
-                      <strong className="text-[#002366]">Additional Requirements:</strong> <em>To be added based on further guidance.</em>
+                      <strong className="text-[#002366]">Additional Requirements:</strong> <em>[To be added based on further guidance].</em>
                     </div>
                   </div>
                 </div>
@@ -96,7 +96,7 @@ export default function ApplyPage() {
                       <strong className="text-[#002366]">Undergraduate Degree:</strong> Minimum of Second Class Upper.
                     </div>
                     <div>
-                      <strong className="text-[#002366]">Additional Requirements:</strong> <em>To be added once confirmed.</em>
+                      <strong className="text-[#002366]">Additional Requirements:</strong> <em>[To be added once confirmed]</em>
                     </div>
                   </div>
                 </div>
@@ -118,12 +118,12 @@ export default function ApplyPage() {
                   <div className="text-center p-8 bg-gradient-to-br from-slate-50 to-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
                     <div className="w-16 h-16 bg-[#002366] text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold">1</div>
                     <h3 className="text-xl font-semibold text-[#002366] mb-4">Fill Application</h3>
-                    <p className="text-slate-600">Complete the online application form with all required information.</p>
+                    <p className="text-slate-600">Fill out the online application form (link provided below).</p>
                   </div>
                   <div className="text-center p-8 bg-gradient-to-br from-slate-50 to-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
                     <div className="w-16 h-16 bg-[#facc15] text-[#002366] rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold">2</div>
                     <h3 className="text-xl font-semibold text-[#002366] mb-4">Interview Stage</h3>
-                    <p className="text-slate-600">Qualified applicants move to the interview stage for evaluation.</p>
+                    <p className="text-slate-600">Qualified applicants move to the interview stage.</p>
                   </div>
                   <div className="text-center p-8 bg-gradient-to-br from-slate-50 to-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
                     <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold">3</div>
@@ -136,15 +136,15 @@ export default function ApplyPage() {
           </div>
         </section>
 
-        {/* Qualities Section */}
+        {/* Qualities selected applicants Embody */}
         <section className="w-full py-20 md:py-28 lg:py-36 bg-gradient-to-br from-slate-50 via-white to-slate-50">
           <div className="container mx-auto px-6 md:px-8">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#002366] leading-tight mb-12">
-                Qualities We Look For
+                Qualities Selected Applicants Embody
               </h2>
               <p className="text-slate-600 md:text-lg leading-relaxed mb-8">
-                Selected students into the Veritas Scholars Program embody the following qualities:
+                Accepted applicants demonstrate the following qualities:
               </p>
               
               <div className="space-y-4">
@@ -228,7 +228,7 @@ export default function ApplyPage() {
           <div className="container mx-auto px-6 md:px-8">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#002366] leading-tight mb-12">
-                Important Disclaimer
+                Disclaimer
               </h2>
               
               <div className="space-y-6">

@@ -56,12 +56,12 @@ export default function Header() {
     {
       href: "/get-involved/apply",
       label: "Apply",
-      description: "Join our scholarship and mentorship programs"
+      description: "Apply to become a Veritas Scholar"
     },
     {
       href: "/get-involved/become-member",
       label: "Become a Member",
-      description: "Volunteer as a mentor or support our mission"
+      description: "Join as a mentor, volunteer, or partner"
     }
   ]
 
@@ -69,7 +69,7 @@ export default function Header() {
     { href: "/impact", label: "Impact" },
     { href: "/blogs", label: "Blog" },
     { href: "/gallery", label: "Gallery" },
-    { href: "/testimonials", label: "Testimonials" },
+    // { href: "/testimonials", label: "Testimonials" },
   ]
 
   const handleMobileDropdownToggle = (dropdown: string) => {

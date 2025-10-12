@@ -113,8 +113,8 @@ export default function WhatWeDoPage() {
               <div className="order-1 lg:order-2">
                 <div className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                   <Image
-                    src="/testimonials/emmanuel-founder.jpg" // Emmanuel in his school jacket
-                    alt="Emmanuel in school jacket - Founder"
+                    src="public/gallery/scholars/2023-2024/Emanuel_Dartmouth.jpg"
+                    alt="Emmanuel Dey, Scholar at Dartmouth College"
                     fill
                     className="object-cover"
                     priority
@@ -122,7 +122,7 @@ export default function WhatWeDoPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                   <div className="absolute bottom-6 left-6 text-white">
                     <p className="text-sm font-medium bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full">
-                      Emmanuel - Founder
+                      Emmanuel - Scholar at Dartmouth College
                     </p>
                   </div>
                 </div>
@@ -231,7 +231,7 @@ export default function WhatWeDoPage() {
                       {program.link && (
                         <Link href={program.link}>
                           <Button variant="ghost" className="w-full justify-between text-[#002366] hover:text-[#facc15] hover:bg-transparent">
-                            <span>Learn More → {program.linkText || "Learn More"}</span>
+                            <span> {program.linkText || "Learn More"}</span>
                             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
                           </Button>
                         </Link>

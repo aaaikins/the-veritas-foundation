@@ -5,6 +5,8 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Users, GraduationCap, School, Award } from 'lucide-react'
+import Header from '@/components/header'
+import Footer from '@/components/footer'
 
 // Define types for our data
 interface Scholar {
@@ -94,7 +96,9 @@ export default function ImpactPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white">
+    <>
+      <Header />
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white pt-20">
       {/* Hero Section with Animated Text */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -242,5 +246,7 @@ export default function ImpactPage() {
         </div>
       </section>
     </div>
+    <Footer />
+  </>
   )
 }
