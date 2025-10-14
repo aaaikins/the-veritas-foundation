@@ -70,7 +70,7 @@ export const scholarsByYear: Record<number, UndergraduateScholar[]> = {
       school: "Dartmouth College",
       graduation_year: 2024,
       major: "Computer Science",
-      profile_image: "public/gallery/scholars/2023-2024/Emmanuel dey dartmouth.jpg",
+      profile_image: "/gallery/scholars/2023-2024/Emmanuel dey dartmouth.jpg",
       bio: "Passionate about AI and machine learning, Sarah is working on innovative solutions for healthcare accessibility.",
       achievements: ["Dean's List", "CS Research Award", "Hackathon Winner"],
       home_country: "Ghana"
@@ -82,7 +82,7 @@ export const scholarsByYear: Record<number, UndergraduateScholar[]> = {
       school: "Allegheny College",
       graduation_year: 2024,
       major: "International Relations",
-      profile_image: "public/gallery/scholars/2023-2024/George_Allengelly.jpg",
+      profile_image: "/gallery/scholars/2023-2024/George_Allengelly.jpg",
       bio: "Passionate about global diplomacy and conflict resolution, Fatima is preparing for a career in international development.",
       achievements: ["Model UN Award", "International Studies Excellence"],
       home_country: "Ghana"
@@ -94,7 +94,7 @@ export const scholarsByYear: Record<number, UndergraduateScholar[]> = {
       school: "Princeton University",
       graduation_year: 2024,
       major: "Public Policy",
-      profile_image: "public/gallery/scholars/2023-2024/Saabiq_Grambling.jpg",
+      profile_image: "/gallery/scholars/2023-2024/Saabiq_Grambling.jpg",
       bio: "Committed to education reform in Ghana, Kofi researches policy solutions for improving rural school systems.",
       achievements: ["Public Policy Excellence", "Leadership Award", "Community Service Recognition"],
       home_country: "Ghana"
@@ -132,7 +132,7 @@ export const scholarsByYear: Record<number, UndergraduateScholar[]> = {
       school: "York University",
       graduation_year: 2023,
       major: "Economics",
-      profile_image: "public/gallery/scholars/2022-2023/Kwabena_York.jpg",
+      profile_image: "/gallery/scholars/2022-2023/Kwabena_York.jpg",
       bio: "Researching microfinance and its impact on rural communities, Ama aims to work in development economics.",
       achievements: ["Economics Excellence Award", "Research Grant Recipient"],
       home_country: "Ghana"
@@ -144,7 +144,7 @@ export const scholarsByYear: Record<number, UndergraduateScholar[]> = {
       school: "University of Chicago",
       graduation_year: 2023,
       major: "Biological sciences",
-      profile_image: "public/gallery/scholars/2022-2023/Francis_Uchicago.jpg",
+      profile_image: "/gallery/scholars/2022-2023/Francis_Uchicago.jpg",
       bio: "Developing low-cost diagnostic tools for tropical diseases, focusing on malaria prevention and treatment.",
       achievements: ["Innovation Award", "Biomedical Research Excellence"],
       home_country: "Ghana"

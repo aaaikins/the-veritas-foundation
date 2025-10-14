@@ -113,7 +113,7 @@ export default function WhatWeDoPage() {
               <div className="order-1 lg:order-2">
                 <div className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                   <Image
-                    src="public/gallery/scholars/2023-2024/Emanuel_Dartmouth.jpg"
+                    src="/gallery/scholars/2023-2024/Emanuel_Dartmouth.jpg"
                     alt="Emmanuel Dey, Scholar at Dartmouth College"
                     fill
                     className="object-cover"
