@@ -106,7 +106,7 @@ export default function UniversityLogos() {
                   Apply Now
                 </a>
                 <a 
-                  href="/scholars" 
+                  href="/scholars/undergraduate" 
                   className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 text-white font-semibold text-lg rounded-xl hover:bg-white/10 hover:border-white/50 transition-all duration-300"
                 >
                   Meet Our Scholars

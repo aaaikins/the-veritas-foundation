@@ -149,7 +149,7 @@ export default function AboutFounderPage() {
                       <Button 
                         size="lg"
                         variant="outline"
-                        className="border-2 border-white text-white hover:bg-white hover:text-[#002366] font-semibold px-8 py-4 text-lg transition-all duration-300"
+                        className="border-2 border-white bg-[#002366] text-white hover:bg-white hover:text-[#002366] font-semibold px-8 py-4 text-lg transition-all duration-300"
                       >
                         Join Us Now
                       </Button>

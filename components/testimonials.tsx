@@ -221,7 +221,7 @@ export default function Testimonials() {
         </div>
 
         {/* Video Testimonials Section */}
-        <div className="mt-24">
+        {/* <div className="mt-24">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-3 bg-[#facc15]/10 text-[#002366] px-5 py-3 rounded-full text-sm font-semibold border border-[#facc15]/20">
               <Video className="h-4 w-4" />
@@ -242,7 +242,7 @@ export default function Testimonials() {
             {videoTestimonials.map((video, index) => (
               <Card key={index} className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl bg-white rounded-2xl overflow-hidden">
                 <div className="relative">
-                  {/* Video Thumbnail */}
+                  // Video Thumbnail
                   <div className="relative h-64 md:h-72 bg-slate-100 overflow-hidden">
                     <img
                       src={video.thumbnail}
@@ -251,7 +251,7 @@ export default function Testimonials() {
                     />
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-300"></div>
                     
-                    {/* Play Button */}
+                    // Play Button
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="bg-white/90 hover:bg-white rounded-full p-4 group-hover:scale-110 transition-all duration-300 shadow-lg cursor-pointer"
                            onClick={() => {
@@ -297,13 +297,13 @@ export default function Testimonials() {
                       </div>
                     </div>
 
-                    {/* Duration Badge */}
+                    // Duration Badge
                     <div className="absolute bottom-4 right-4 bg-black/70 text-white text-sm px-3 py-1 rounded-full">
                       {video.duration}
                     </div>
                   </div>
 
-                  {/* Video Info */}
+                  // Video Info
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <Avatar className="w-12 h-12 border-2 border-[#facc15]/20">
@@ -333,7 +333,7 @@ export default function Testimonials() {
               </Card>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   )

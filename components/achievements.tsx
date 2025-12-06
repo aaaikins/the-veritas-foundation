@@ -107,7 +107,7 @@ export default function Achievements() {
         </div>
 
         {/* Additional Impact Metrics */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        {/* <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
           <div className="text-center text-white">
             <div className="text-3xl md:text-4xl font-bold text-[#facc15] mb-2">15</div>
             <div className="text-slate-200">Countries Where Alumni Work</div>
@@ -120,10 +120,10 @@ export default function Achievements() {
             <div className="text-3xl md:text-4xl font-bold text-[#facc15] mb-2">100%</div>
             <div className="text-slate-200">Committed to Giving Back</div>
           </div>
-        </div>
+        </div> */}
 
         {/* Call to Action */}
-        <div className="text-center mt-16">
+        {/* <div className="text-center mt-16">
           <p className="text-slate-200 text-lg mb-6 max-w-2xl mx-auto">
             Every statistic represents a life transformed, a family uplifted, and a community strengthened. 
             Be part of our growing impact.
@@ -144,7 +144,7 @@ export default function Achievements() {
               Support Our Mission
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   )
