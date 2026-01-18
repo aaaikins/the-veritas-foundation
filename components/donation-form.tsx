@@ -80,20 +80,20 @@ export default function DonationForm() {
         throw new Error("Please fill in all required fields")
       }
 
-      // Submit to backend API
+      // Create Stripe Checkout Session
       const payload = {
-        donor_name: formData.anonymous ? null : `${formData.firstName} ${formData.lastName}`.trim(),
-        donor_email: formData.anonymous ? null : formData.email,
         amount: parseFloat(formData.amount),
-        currency: "USD",
-        payment_method: formData.paymentMethod,
-        purpose: formData.message || null,
-        is_anonymous: formData.anonymous
+        currency: "usd",
+        donorName: formData.anonymous ? undefined : `${formData.firstName} ${formData.lastName}`.trim(),
+        donorEmail: formData.anonymous ? undefined : formData.email,
+        purpose: formData.message || undefined,
+        isAnonymous: formData.anonymous,
+        donationType: donationType // one-time, monthly, yearly
       }
 
-      console.log('Submitting donation:', payload)
+      console.log('Creating Stripe checkout session:', payload)
 
-      const res = await fetch("/api/donations", {
+      const res = await fetch("/api/donations/create-checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,40 +102,25 @@ export default function DonationForm() {
       })
 
       if (!res.ok) {
-        const errorText = await res.text()
-        console.error('Server response:', errorText)
-        throw new Error(`Server error: ${res.status} - ${errorText}`)
+        const errorData = await res.json()
+        console.error('Server response:', errorData)
+        throw new Error(errorData.error || `Server error: ${res.status}`)
       }
 
       const responseData = await res.json()
-      console.log('Success response:', responseData)
+      console.log('Checkout session created:', responseData)
 
-      alert("Thank you for your generous donation! Your support makes a real difference.")
-      setIsOpen(false)
-      // Reset form
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        amount: "",
-        paymentMethod: "card",
-        cardNumber: "",
-        expiryDate: "",
-        cvv: "",
-        billingAddress: "",
-        city: "",
-        state: "",
-        zipCode: "",
-        message: "",
-        anonymous: false
-      })
-      setCustomAmount("")
+      // Redirect to Stripe Checkout
+      if (responseData.url) {
+        // Redirect to Stripe Checkout for payment
+        window.location.href = responseData.url
+      } else {
+        throw new Error("No checkout URL received from Stripe")
+      }
     } catch (err) {
       console.error('Submission error:', err)
       const errorMessage = err instanceof Error ? err.message : "Failed to process donation. Please try again later."
       alert(errorMessage)
-    } finally {
       setIsLoading(false)
     }
   }
@@ -450,7 +435,7 @@ export default function DonationForm() {
               ) : (
                 <>
                   <HeartHandshake className="mr-2 h-4 w-4" />
-                  Donate ${formData.amount || '0'}
+                  {donationType === 'monthly' ? 'Start Monthly Donation' : donationType === 'yearly' ? 'Start Yearly Donation' : 'Donate'} ${formData.amount || '0'}
                 </>
               )}
             </Button>

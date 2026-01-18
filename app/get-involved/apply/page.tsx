@@ -3,6 +3,7 @@
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle, FileText, Users, Award, AlertCircle, GraduationCap, Target, Calendar, BookOpen, ExternalLink, Star, TrendingUp, Heart, Lightbulb, MessageCircle, Clock, Globe } from "lucide-react"
@@ -57,7 +58,7 @@ export default function ApplyPage() {
                 </div>
                 <div className="bg-gradient-to-br from-slate-50 to-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 text-center">
                   <div className="text-3xl md:text-4xl font-bold text-[#facc15] mb-4">March 22nd</div>
-                  <div className="text-xl font-semibold text-[#002366] mb-2">Graduate Scholars (GARID Program)</div>
+                  <div className="text-xl font-semibold text-[#002366] mb-2">Graduate Scholars</div>
                   <div className="text-slate-600">Applications open</div>
                 </div>
               </div>
@@ -90,7 +91,7 @@ export default function ApplyPage() {
                 </div>
                 
                 <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-                  <h3 className="text-2xl font-bold text-[#002366] mb-6">Graduate Applicants (GARID Program)</h3>
+                  <h3 className="text-2xl font-bold text-[#002366] mb-6">Graduate Applicants</h3>
                   <div className="space-y-4 text-slate-600">
                     <div>
                       <strong className="text-[#002366]">Undergraduate Degree:</strong> Minimum of Second Class Upper.
@@ -258,10 +259,13 @@ export default function ApplyPage() {
                 who are making a difference in the world.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                <Link href="https://docs.google.com/forms/d/e/1FAIpQLSe3VXoHj7JeUMzo9icecWFoEyj9Vy2UrO_id3SnYc8WCWwLjQ/viewform?usp=header">
                 <Button className="bg-[#002366] hover:bg-[#002366]/90 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 text-lg shadow-lg hover:shadow-xl hover:scale-105">
                   <ExternalLink className="mr-2 h-5 w-5" />
                   Apply Now
                 </Button>
+                </Link>
+
                 <Button variant="outline" className="border-[#002366] text-[#002366] hover:bg-[#002366] hover:text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 text-lg hover:scale-105">
                   Learn More
                 </Button>
