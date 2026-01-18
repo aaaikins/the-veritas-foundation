@@ -266,9 +266,9 @@ export default function ApplyPage() {
                 </Button>
                 </Link>
 
-                <Button variant="outline" className="border-[#002366] text-[#002366] hover:bg-[#002366] hover:text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 text-lg hover:scale-105">
+                {/* <Button variant="outline" className="border-[#002366] text-[#002366] hover:bg-[#002366] hover:text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 text-lg hover:scale-105">
                   Learn More
-                </Button>
+                </Button> */}
               </div>
             </div>
           </div>

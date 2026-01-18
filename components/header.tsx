@@ -68,7 +68,7 @@ export default function Header() {
   const navLinks = [
     { href: "/impact", label: "Impact" },
     { href: "/blogs", label: "Blog" },
-    { href: "/gallery", label: "Gallery" },
+    { href: "/get-involved/apply", label: "Apply" },
     // { href: "/testimonials", label: "Testimonials" },
   ]
 
