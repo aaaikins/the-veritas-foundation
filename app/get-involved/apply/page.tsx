@@ -30,6 +30,11 @@ export default function ApplyPage() {
                 Join our community of exceptional scholars who are transforming their lives through education.
                 Take the first step toward your academic dreams.
               </p>
+              <Link href="#apply-now" className="inline-block">
+                <Button className="bg-[#facc15] hover:bg-[#facc15]/90 text-[#002366] px-8 py-4 rounded-lg font-semibold transition-all duration-300 text-lg shadow-lg hover:shadow-xl hover:scale-105">
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -44,7 +49,7 @@ export default function ApplyPage() {
               
               <div className="space-y-6 text-slate-600 md:text-lg leading-relaxed">
                 <p>
-                  Each year, application opens on <strong>January 22nd</strong> for undergraduate scholars and <strong>March 22nd</strong> for graduate scholars selection. 
+                  Each year, application opens on <strong>January</strong> for undergraduate scholars and <strong>March</strong> for graduate scholars selection. 
                   We select 25 to 30 undergraduate applicants and 25 to 30 graduate applicants from hundreds of candidates. 
                   Selected scholars are guided through a step-by-step application process to schools in the U.S. and Canada.
                 </p>
@@ -52,14 +57,19 @@ export default function ApplyPage() {
 
               <div className="grid gap-6 md:grid-cols-2 mt-12 mb-8">
                 <div className="bg-gradient-to-br from-slate-50 to-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-[#facc15] mb-4">January 22nd</div>
+                  <div className="text-3xl md:text-4xl font-bold text-[#facc15] mb-4">January</div>
                   <div className="text-xl font-semibold text-[#002366] mb-2">Undergraduate Scholars</div>
                   <div className="text-slate-600">Applications open</div>
+                <Link href="#apply-now" className="inline-block">
+                <Button className="bg-[#facc15] hover:bg-[#facc15]/90 text-[#002366] px-8 py-4 rounded-lg font-semibold transition-all duration-300 text-lg shadow-lg hover:shadow-xl hover:scale-105">
+                  Apply Now
+                </Button>
+              </Link>
                 </div>
                 <div className="bg-gradient-to-br from-slate-50 to-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-[#facc15] mb-4">March 22nd</div>
+                  <div className="text-3xl md:text-4xl font-bold text-[#facc15] mb-4">March</div>
                   <div className="text-xl font-semibold text-[#002366] mb-2">Graduate Scholars</div>
-                  <div className="text-slate-600">Applications open</div>
+                  <div className="text-slate-600">Applications closed</div>
                 </div>
               </div>
             </div>
@@ -248,7 +258,7 @@ export default function ApplyPage() {
         </section>
 
         {/* Call to Action */}
-        <section className="w-full py-20 md:py-28 lg:py-36 bg-white">
+        <section id="apply-now" className="w-full py-20 md:py-28 lg:py-36 bg-white">
           <div className="container mx-auto px-6 md:px-8">
             <div className="text-center space-y-8 max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#002366] leading-tight">
